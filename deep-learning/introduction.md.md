@@ -1,0 +1,12 @@
+# Deep Learning
+## Introduction to machine learning
+Machine Learning (ML) involves acquiring knowledge by extracting patterns from raw data. An ML algorithm's performance depends on the data and its representation used to train the model (input). Hence, identifying the relevant data and its representation to train a model requires domain-specific expert knowledge. Each piece of information (data) included in the representation is defined as a _feature_.
+
+## Representation learning 
+Information can have different representations. Two data clusters that require delineation can be represented as a scatter plot either on Cartesian coordinates or polar coordinates. These two distinct representations highlight different features of the data. Representation learning not only learns the mapping between the representation and the output but also the representation itself (e.g., autoencoder #unclear). 
+
+### Problems of representation learning
+When writing algorithms to identify features, the goal is to recognize different sources of variations (observable or unobservable quantities that help us make sense of the rich variations in the data). In real-world applications, it's hard to identify these factors. Furthermore, the factors influence every single piece of data. Hence, it's hard to disentangle the factors from the data. 
+
+## Deep learning
+Deep learning solves the central issue of representation learning  (see [[#Problems of representation learning]]). The idea behind deep learning is to build complex concepts out of simpler ones. Let's consider an example of object identification in an image. In the example of object identification, the input image is the visible layer. An image is a functional mapping of a set of pixel values to an object (which we observe). The deep learning algorithm consists of a series of hidden layers (unobservable) that extract increasingly abstract features from the image, culminating in an output (object identification). Each layer performs a functional mapping with a layer's output often used as an input to the subsequent layer. In an image, the first layer could identify edges (based on the contrast between neighboring pixels), which will be used as an input to the second layer. The second layer uses these edges to extract contours and corners, which will facilitate identifying object parts in the subsequent layers. As these layers' functional mapping cannot be observed, the layers are called hidden layers in a deep learning algorithm. 
