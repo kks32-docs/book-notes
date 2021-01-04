@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "deep-learning/introduction.md.md",
+            "file": "deep-learning/introduction.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "deep-learning/introduction.md.md",
+                "file": "deep-learning/introduction.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "deep-learning/introduction.md.md"
+                "file": "deep-learning/introduction.md"
               }
             }
           }
@@ -95,6 +95,7 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/introduction.md",
     "deep-learning/introduction.md.md",
     "Untitled.md",
     "critical-state-soil-mechanics/introduction.md.md"
