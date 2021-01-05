@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "deep-learning/introduction.md",
+            "file": "deep-learning/01-linear-algebra.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "deep-learning/introduction.md",
+                "file": "deep-learning/01-linear-algebra.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "deep-learning/introduction.md"
+                "file": "deep-learning/01-linear-algebra.md"
               }
             }
           }
@@ -95,9 +95,12 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/01-linear-algebra.md",
+    "deep-learning/00-introduction.md",
+    "deep-learning/Untitled.md",
     "deep-learning/introduction.md",
-    "deep-learning/introduction.md.md",
     "Untitled.md",
+    "deep-learning/introduction.md.md",
     "critical-state-soil-mechanics/introduction.md.md"
   ]
 }
