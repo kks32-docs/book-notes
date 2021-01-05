@@ -4,6 +4,6 @@
 
 
 
-[Critical state soil mechanics](https://kks32.github.io/learning/critical-state-soil-mechanics/)
+[Critical state soil mechanics](https://kks32.github.io/learning/critical-state-soil-mechanics/introduction.md)
 
-[Deep Learning](https://kks32.github.io/learning/deep-learning)
+[Deep Learning](https://kks32.github.io/learning/#/deep-learning/00-introduction.md)
