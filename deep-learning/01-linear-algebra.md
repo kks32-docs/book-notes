@@ -3,11 +3,11 @@
 > For more information refer to the [Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 
 ## Types
-A **Scalar** is a single number $s \in {\rm I\!R}$, when defining real-valued scalars 
+A **Scalar** is a single number $s \in \mathbb{R}$, when defining real-valued scalars 
 
-A **vector** is an array of numbers. Intuitively we think of them as individual points in space. If a vector has $n$ elements and all the numbers are of type ${\rm I\!R}$ then the vector has a set of ${\rm I\!R}n$ elements written as ${\rm I\!R}^n$.
+A **vector** is an array of numbers. Intuitively we think of them as individual points in space. If a vector has $n$ elements and all the numbers are of type $\mathbb{R}$ then the vector has a set of $\mathbb{R}n$ elements written as $\mathbb{R}^n$.
 
-**Matrix** is a 2D array of numbers. A matrix $\textbf{A}$ with $m$ rows and $n$ columns is written as $\textbf{A} \in {\rm I\!R}^{m\times n}$. We identify elements in a matrix as $A_{i,j}$.
+**Matrix** is a 2D array of numbers. A matrix $\textbf{A}$ with $m$ rows and $n$ columns is written as $\textbf{A} \in \mathbb{R}^{m\times n}$. We identify elements in a matrix as $A_{i,j}$.
 
 A **Tensor** is an array with more than two axis. $A_{i, j, k}$ is an example of a 3D tensor. 
 
@@ -28,9 +28,9 @@ A system of linear equations is written as:
 
 $$ A x = b$$
 
-where, $A \in {\rm I\!R}^{m \times n}$, $x \in {\rm I\!R}^n$ and $b \in {\rm I\!R}^m$ can be solved as $x = A^{-1} b$.  Once $A^{-1}$ is computed, it can be used to solve for different values of $b$.  $A^{-1}$ is primarily a theoretical tool and should not be used in practice. Since $A^{-1}$ can only be represented in computers with limited precision, algorithms which also use $b$ can provide an accurate estimation of $x$.  
+where, $A \in \mathbb{R}^{m \times n}$, $x \in \mathbb{R}^n$ and $b \in \mathbb{R}^m$ can be solved as $x = A^{-1} b$.  Once $A^{-1}$ is computed, it can be used to solve for different values of $b$.  $A^{-1}$ is primarily a theoretical tool and should not be used in practice. Since $A^{-1}$ can only be represented in computers with limited precision, algorithms which also use $b$ can provide an accurate estimation of $x$.  
 
-For $A^{-1}$ to exist, $Ax = b$ must have exactly one solution. It is also possible for the system to have no solution or infinitely many solutions. In order for the system $Ax = b$ to have a solution for all values of $b \in {\rm I\!R}^m$, the column space of $\textbf{A}$ be all of ${\rm I\!R}^m$. If any value in ${\rm I\!R}^m$ is excluded from the column space, and then it is a potential value of $b$ that has no solution. The requirement of $\textbf{A} \in {\rm I\!R}^m$ implies $\textbf{A}$ has $m$ columns and $n \ge m$. Otherwise, the dimensionality of column space would be less than $m$. For example, consider a $3\times 2$ matrix. The target $b$ is 3-D, but $x$ is only 2-D, so modifying the value of $x$ at best enables us to trace output to a 2-D plane within ${\rm I\!R}^3$. The equation has a solution if and only if $b$ lies on that plane.
+For $A^{-1}$ to exist, $Ax = b$ must have exactly one solution. It is also possible for the system to have no solution or infinitely many solutions. In order for the system $Ax = b$ to have a solution for all values of $b \in \mathbb{R}^m$, the column space of $\textbf{A}$ be all of $\mathbb{R}^m$. If any value in $\mathbb{R}^m$ is excluded from the column space, and then it is a potential value of $b$ that has no solution. The requirement of $\textbf{A} \in \mathbb{R}^m$ implies $\textbf{A}$ has $m$ columns and $n \ge m$. Otherwise, the dimensionality of column space would be less than $m$. For example, consider a $3\times 2$ matrix. The target $b$ is 3-D, but $x$ is only 2-D, so modifying the value of $x$ at best enables us to trace output to a 2-D plane within $\mathbb{R}^3$. The equation has a solution if and only if $b$ lies on that plane.
 
 ## Norm
 
@@ -55,7 +55,7 @@ Like the decomposition of an integer to its prime factors, a matrix can also be 
 
 $$ \mathbf{A} v = \lambda v$$
 
-where, $v$ is the eigenvector and $\lambda$ is the eigenvalue. If $v$ is an eigenvector, so is any rescaled value $sv$ for $s \in {\rm I\!R}, s \ne 0$. Moreover, $sv$ has the same eigenvalues $\lambda$. So we are interested only in unit eigenvectors. Using the eigenvalues and eigenvectors we can reconstruct the original matrix $\mathbf{A}$ as $\mathbf{A}  = V diag(\lambda) V^{-1}$, where $V$ represents a collection of all eigenvectors represented as column vectors. 
+where, $v$ is the eigenvector and $\lambda$ is the eigenvalue. If $v$ is an eigenvector, so is any rescaled value $sv$ for $s \in \mathbb{R}, s \ne 0$. Moreover, $sv$ has the same eigenvalues $\lambda$. So we are interested only in unit eigenvectors. Using the eigenvalues and eigenvectors we can reconstruct the original matrix $\mathbf{A}$ as $\mathbf{A}  = V diag(\lambda) V^{-1}$, where $V$ represents a collection of all eigenvectors represented as column vectors. 
 
 Not all matrices can be decomposed, and some may have decomposition with complex numbers. However, all real symmetric matrix $\mathbf{A}$ is guaranteed to have _Eigendecomposition_.
 
@@ -79,7 +79,7 @@ Consider a system of linear equations $\mathbf{A}x = y$, if matrix $\mathbf{A}$ 
 
 ## Principal Component Analysis (PCA)
 
-Let's say we have $m$ points $x^1, \dots x^m$ in ${\rm I\!R}^n$, we want to apply lossy compression thereby storing these points using less memory, but we may lose some precision by doing this operation. Our goal is to lose as little precision as possible. The way to achieve this is to encode a lower dimension of the points $x^{(i)} \in {\rm I\!R}^n$ by finding a corresponding code vector $c^{(i)} \in {\rm I\!R}^m$, where $l < n$, we want to find some encoding function $f(x) = c$ and a decoding function $x \approx g(f(x))$. PCA is defined by our choice of decoding function, typically a matrix verse that maps the code vector back into ${\rm I\!R}^n$ space $g(c) = \mathbf{D}c$, where $\mathbf{D} \in {\rm I\!R}^{n\times l}$ computing the optimum code for the decoder may be a difficult problem. For easy encoding, PCA constructs the columns of $\mathbf{D}$ to be orthogonal to each other. However, this leads to many possible solutions. We can scale $\mathbf{D}_{:,i}$, so we constrain the columns of the matrix to be of unit norm. We need to find the code point $c^*$ for each input $x$, one way is to minimize the distance between $c^*$ and $x$ is to get the $L^2$ norm.
+Let's say we have $m$ points $x^1, \dots x^m$ in $\mathbb{R}^n$, we want to apply lossy compression thereby storing these points using less memory, but we may lose some precision by doing this operation. Our goal is to lose as little precision as possible. The way to achieve this is to encode a lower dimension of the points $x^{(i)} \in \mathbb{R}^n$ by finding a corresponding code vector $c^{(i)} \in \mathbb{R}^m$, where $l < n$, we want to find some encoding function $f(x) = c$ and a decoding function $x \approx g(f(x))$. PCA is defined by our choice of decoding function, typically a matrix verse that maps the code vector back into $\mathbb{R}^n$ space $g(c) = \mathbf{D}c$, where $\mathbf{D} \in \mathbb{R}^{n\times l}$ computing the optimum code for the decoder may be a difficult problem. For easy encoding, PCA constructs the columns of $\mathbf{D}$ to be orthogonal to each other. However, this leads to many possible solutions. We can scale $\mathbf{D}_{:,i}$, so we constrain the columns of the matrix to be of unit norm. We need to find the code point $c^*$ for each input $x$, one way is to minimize the distance between $c^*$ and $x$ is to get the $L^2$ norm.
 
 $$c^* = arg min_c || x - g(c) ||_2$$
 
