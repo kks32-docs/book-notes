@@ -7,3 +7,4 @@
 * Deep Learning
   * [Introduction](deep-learning/00-introduction.md)
   * [Linear Algebra](deep-learning/01-linear-algebra.md)
+  * [Probability and Information theory](deep-learning/02-probability-information-theory.md)
