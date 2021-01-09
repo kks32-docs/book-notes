@@ -75,7 +75,7 @@ Every real matrix has a Singular Value Decomposition (SVD), but the same is not 
 
 ## Pseudoinverse
 
-Consider a system of linear equations $\mathbf{A}x = y$, if matrix $\mathbf{A}$ is non-square then the left inverse of $\mathbf{A}$ is written as $x = \mathbf{B}y$. Depending on the problem, there may not be a unique mapping from $\mathbf{A}$ to $\mathbf{B}$. If $\mathbf{A}$ is taller than its wide, it is possible for this equation to have no solution (see [[#Linear systems]]). If $\mathbf{A}$ is wider than its tall, there could be multiple solutions. Moore-Penrose offers a pseudoinverse providing as many possible solutions when $\mathbf{A}$ is taller than its wide with minimal Euclidean norm $||x||_2$. For $\mathbf{A}$ wider than its tall it provides all possible $y$ in terms of the Euclidean norm $|| \mathbf{A} x - y ||_2$
+Consider a system of linear equations $\mathbf{A}x = y$, if matrix $\mathbf{A}$ is non-square then the left inverse of $\mathbf{A}$ is written as $x = \mathbf{B}y$. Depending on the problem, there may not be a unique mapping from $\mathbf{A}$ to $\mathbf{B}$. If $\mathbf{A}$ is taller than its wide, it is possible for this equation to have no solution (see [[01-linear-algebra#Linear systems]]). If $\mathbf{A}$ is wider than its tall, there could be multiple solutions. Moore-Penrose offers a pseudoinverse providing as many possible solutions when $\mathbf{A}$ is taller than its wide with minimal Euclidean norm $||x||_2$. For $\mathbf{A}$ wider than its tall it provides all possible $y$ in terms of the Euclidean norm $|| \mathbf{A} x - y ||_2$
 
 ## Principal Component Analysis (PCA)
 

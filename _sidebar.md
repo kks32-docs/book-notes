@@ -5,6 +5,9 @@
   * [Introduction](critical-state-soil-mechanics/introduction.md)
 
 * Deep Learning
-  * [Introduction](deep-learning/00-introduction.md)
-  * [Linear Algebra](deep-learning/01-linear-algebra.md)
-  * [Probability and Information theory](deep-learning/02-probability-information-theory.md)
+	* [Basics]
+  		* [Introduction](basics/00-introduction.md)
+  		* [Linear Algebra](basics/01-linear-algebra.md)
+  		* [Probability theory](basics/02-probability-theory.md)
+  		* [Information theory](basics/03-information-theory.md)
+  		* [Numerical method](basics/04-numerical-method.md)
