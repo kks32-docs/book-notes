@@ -11,7 +11,7 @@
           "type": "markdown",
           "state": {
             "file": "_sidebar.md",
-            "mode": "preview"
+            "mode": "source"
           }
         }
       }
@@ -96,14 +96,14 @@
   },
   "lastOpenFiles": [
     "_sidebar.md",
+    "README.md",
+    "deep-learning/ml-basics/00-machine-learning-basics.md",
+    "Untitled.md",
     "deep-learning/basics/02-probability-theory.md",
     "deep-learning/basics/04-numerical-methods.md",
     "deep-learning/basics/03-information-theory.md",
-    "Untitled.md",
     "deep-learning/basics/02-probability-information-theory.md",
     "deep-learning/basics/01-linear-algebra.md",
-    "deep-learning/00-introduction.md",
-    "deep-learning/03-information-theory.md",
-    "deep-learning/02-probability-information-theory.md"
+    "deep-learning/00-introduction.md"
   ]
 }

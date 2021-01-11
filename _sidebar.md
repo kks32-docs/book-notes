@@ -10,3 +10,4 @@
   * [Probability theory](deep-learning/basics/02-probability-theory.md)
   * [Information theory](deep-learning/basics/03-information-theory.md)
   * [Numerical method](deep-learning/basics/04-numerical-methods.md)
+  * [ML Basics](deep-learning/ml-basics/00-machine-learning-basics.md)
