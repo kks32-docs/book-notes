@@ -67,3 +67,41 @@ Rewriting and differentiating with respect to $w$ yields:
 $$w = (X^{(train)}^T X^{(train)})^{-1} X^{(train)}^T y^{(train)}$$
 
 These weights are computed from the training set to estimate $\hat{y}$.  However, we often deal with $\hat{y} = w^T x + b$, the mapping is still linear, but a mapping from feature to prediction now is an affine function. The intercept term $b$ is called as the __bias parameter__. The output of the system is biased towards being $b$ in the absence of any input, hence it is termed as the bias parameter and is _different from the statistical bias_.
+
+## Generalization
+
+**Generalization** is the ability to perform well on unseen data. The ability to generalize is measured using errors in the ML prediction. _Training error_ computes the error on the training set. _Generalization or test error_ is the expected value of error on new input, typically drawn from a distribution of all possible inputs. 
+
+> How can we affect the performance of a test set when we only observe the training set?
+
+If the training and test set are chosen arbitrarily, it is impossible to control the performance. However, the following assumptions help in how to choose the datasets to improve the performance of ML. The examples in the training and test datasets are collected _independently_. The distribution of examples in the training set and test set are _identically distributed_. The expected training error of a randomly selected model is equal to the expected test error of that model. Factors determining how well an ML algorithm performs on its ability to:
+- make training errors small
+- make the gap between training and test error small.
+
+**Underfitting** occurs when the model is not able to obtain a sufficiently low error on the training set. **Overfitting** occurs when the gap between training error and the test error is too large. We can control whether a model is likely to overfit or underfit by altering its **capacity**, i.e., the ability to fit a wide variety of functions (altering the number of input features). Models with low capacity struggle to fit, while models with high capacity memorize properties of the training set resulting in overfitting. Capacity is controlled by choosing the _hypothesis space_, the set of functions that can be chosen as a solution.
+
+ML performs best when their capacity is appropriate for the true complexity of the task they need to perform. In practice, ML doesn't find the best function, but the one that significantly reduces the error, meaning the effective capacity may be less than the _representational capacity_ (the ability to choose functions from a family of functions).
+
+_Occam's razor_: Among competing hypotheses that explain known observations equally well, we should choose the "_simplest_" one. 
+
+Statistical learning shows that the discrepancy between training error and generalization error is bounded from above by a quantity that grows as the model capacity grows but shrinks as the number of training examples increases. However, in practice, it is difficult to determine the capacity of DL algorithms, as it is limited by the capabilities of the optimization algorithms. 
+
+_Parametric models_ learn a function described by a parameter vector, whose size is finite and fixed before any data is observed (e.g., linear regression). _ Nonparametric models_ have no such limitations (e.g., a model that predicts the output based on the nearest neighbor input). 
+
+The ideal model is an _oracle_ (true probability distribution). The error incurred by an oracle making a prediction from the true distribution $p(x, y)$ is called *Bayes error*. ML promises to find the rules that are _probably_ correct about _most_ members of the set they concern.
+
+## No free lunch
+When averaged over all possible data generating distributions, every classification algorithm has the same error rate when classifying previously unobserved samples. In some sense, no ML algorithm is universally better than any other. A sophisticated algorithm has the same _average performance_ as the one merely predicting that every point belongs to the same class. Our goal is not to seek a universal learning algorithm. Instead, our goal is to understand what kinds of distributions are relevant to the "real world" that an ML agent experiences. 
+
+## Regularization
+
+We can improve a model using a preferential function. Given two functions, ML will choose the preferential functions given the same error. For an algorithm to choose the non-preferred function, the error should be significantly less. In the case of linear regression, we can include preference by adding a _weight decay_ function.
+
+$$J(w) = MSE_{train} + \lambda w^T w$$
+
+$\lambda$ represents the strength of preference to smaller weights. A $\lambda$ of zero refers to no preference, a high value of lambda means biased to a constant slope, and a value approaching zero would reduce the preference. By minimizing $J(w)$, the choices of weights make a trade-off between fitting the training data and being small. More generally, we can regularize a model that learns a function $fn(x, \theta)$ by adding a penalty called a **regularization** to the cost function: $\Omega (w) = w^T w$.  Regularization is any modification we make to a learning algorithm that is intended to reduce its generalization error, but not its training error. Expressing a preference for any function over another is a more general way of controlling the model capacity than altering the _hypothesis space_.
+
+## Hyperparameters
+Hyperparameters are the settings used to control the algorithm behavior (for e.g., weight decay $\lambda$ in linear regression [[#Regularization]] or the degree of a polynomial in a regression fit - this is _capacity hyperparameter_). Sometimes a setting is chosen as a hyperparameter because the setting is too difficult to optimize, or the parameter is not appropriate to learn on the training set. This applies to all _capacity hyperparameter_, as they always choose the maximum possible capacity (overfitting). 
+
+It is important that the test examples are not used in making choices of the model, including the hyperparameter. **Validation set** is constructed from the training set by splitting the training set into two disjoint subsets, of which one is used for learning the parameters, while the other is used to estimate the generalization error (validation set), allowing for updating the hyperparameters. The validation set is a subset used to guide the selection of hyperparameters. Typically 80% of the training dataset is used for training, and 20% is used for validation. Since the validation is used to "train" the hyperparameter space, the validation set will underestimate the generalization error. After all optimization, the generalization error may be estimated using the test set.

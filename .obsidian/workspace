@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "bf6ca52b308f11b8",
+        "id": "c90bceb17c1c5f49",
         "type": "leaf",
         "active": true,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
+            "file": "deep-learning/ml-basics/00-machine-learning-basics.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "deep-learning/ml-basics/00-machine-learning-basics.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "deep-learning/ml-basics/00-machine-learning-basics.md"
               }
             }
           }
@@ -95,9 +95,9 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/ml-basics/00-machine-learning-basics.md",
     "_sidebar.md",
     "README.md",
-    "deep-learning/ml-basics/00-machine-learning-basics.md",
     "Untitled.md",
     "deep-learning/basics/02-probability-theory.md",
     "deep-learning/basics/04-numerical-methods.md",
