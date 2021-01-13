@@ -105,3 +105,53 @@ $\lambda$ represents the strength of preference to smaller weights. A $\lambda$ 
 Hyperparameters are the settings used to control the algorithm behavior (for e.g., weight decay $\lambda$ in linear regression [[#Regularization]] or the degree of a polynomial in a regression fit - this is _capacity hyperparameter_). Sometimes a setting is chosen as a hyperparameter because the setting is too difficult to optimize, or the parameter is not appropriate to learn on the training set. This applies to all _capacity hyperparameter_, as they always choose the maximum possible capacity (overfitting). 
 
 It is important that the test examples are not used in making choices of the model, including the hyperparameter. **Validation set** is constructed from the training set by splitting the training set into two disjoint subsets, of which one is used for learning the parameters, while the other is used to estimate the generalization error (validation set), allowing for updating the hyperparameters. The validation set is a subset used to guide the selection of hyperparameters. Typically 80% of the training dataset is used for training, and 20% is used for validation. Since the validation is used to "train" the hyperparameter space, the validation set will underestimate the generalization error. After all optimization, the generalization error may be estimated using the test set.
+
+## Estimators, Bias, and Variance
+
+### Estimators
+Estimator is the best prediction of some quantity of interest. Point estimation of a parameter $\theta$ (true value) is $\hat{\theta}$:
+
+$$\hat{\theta}_m = g(x^1, \dots x^m)$$
+
+Function estimation refers to the estimation of the relationship between the input and target variables (is an example of point estimation).
+
+### Bias
+$$bias (\hat{\theta}_m) = \mathbb{E}(\hat{\theta}_m) - \theta$$
+
+An estimator is unbiased if $bias(\hat{\theta}_m) = 0$.  An estimator is asymptotically unbiased if $\lim{m \to \infty} bias(\hat{\theta}_m) = 0$ or $\lim{m \to \infty} \mathbb{E}(\hat{\theta}_m) = \theta$. 
+
+### Variance
+Variance is how much we expect an estimator to vary as a function of the data sample. $Var(\hat{\theta}_m)$ provides a measure of how we would expect the estimate we compute from data to vary as we independently resample the dataset from the underlying data generation process. 
+
+Neither the square root of sample variance nor the square root of an unbiased estimator of the variance provides an unbiased estimate of the standard deviation. Both approaches tend to _underestimate the true standard deviation_, but are still used in practice. The square root of the unbiased estimator of the variance is less of an underestimate. For large samples, the approximation is reasonable. 
+
+The standard error of mean is instrumental in ML to estimate the generalization error by computing the sample mean error on the test.  The variance of an estimator decreases as a function of $m$, the number of samples in a dataset. 
+
+#### Variance and Bias
+Bias estimates the expected deviation from the true value of the function or parameter. Variance provides a measure of deviation from the expected estimator value than any particular sampling is likely to cause. 
+
+**Bias decreases with capacity and influences the underfitting zone, while variance increases with capacity and affects the overfitting zone.**
+
+$$ MSE_{estimator} = \mathbb{E}\left[(\hat{\theta}_m - theta)^2\right] = Bias(\hat{\theta}_m)^2 + Var(\hat{\theta}_m)$$
+
+Desirable estimators keep bias and variance somewhat in check.
+
+#### Consistency
+As the number of data points $m$ increases our point estimates converge to the true value of the corresponding parameters $plim_{m\to\infty} \hat{\theta}_m = \theta$.  Consistency ensures that the bias introduced by the estimator diminishes as the number of data examples grows.
+
+### Maximum Likelihood Estimator
+
+Maximum Likelihood Estimator can be viewed as minimizing the dissimilarity between the empirical distribution $\hat{p}_{data}$, defined by the training set and the model distribution with the degree of dissimilarity between the two measured by the KL divergence.
+
+$$D_{KL}(\hat{p}_{data} || p_{model}) = \mathbb{E}_{x\approx \hat{p}_{data}}\left[\log \hat{p}_{data} (x) - \log p_{model} (x)\right]$$
+
+The first part of the equation is only a function of the data generation process, not the model. We train the model to minimize the KL divergence. 
+
+Maximum Likelihood can be thought of as an attempt to make the model distribution match the empirical data $\hat{p}_{data}$. Ideally, we want to match the true data-generation distribution $p_{data}$ but we have no direct access to this distribution. Maximum likelihood is useful to describe the error estimation, maximum likelihood shows that the $MSE_{train}$ is a good measure of error for estimating linear regression.
+
+Maximum Likelihood estimator has the property of _consistency_, as the number of training examples approaches infinity, the maximum likelihood estimate of a parameter converges to a true value if and when:
+- The true distribution $p_{data}$ lies withing the model family $p_{model}(:, \theta)$. Otherwise, no estimator can recover $p_{data}$. 
+- The true distribution $p_{data}$ must correspond to exactly one value of $\theta$. Otherwise, maximum likelihood can recover the correct $p_{data}$  but will not be able to determine which values of $\theta$ was used by the data generation process. 
+
+
+For large $m$, consistent estimators have lower Mean Square Error (MSE) than the maximum likelihood estimator. For reasons of consistency and efficiency, maximum likelihood is often considered the preferred estimator to use for ML. When the number of examples is small enough to yield overfitting behavior, regularization strategies such as weight decay may be used to obtain a biased version of maximum likelihood that has less variance when training data is limited. 
