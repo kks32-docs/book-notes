@@ -1,8 +1,8 @@
-## Supervised learning
+# Supervised learning
 
 Learning algorithms that learn to associate some input with some output give a training set of examples of input $x$ and output $y$ provided by a "human supervisor". 
 
-### Probabilistic supervised learning
+## Probabilistic supervised learning
 
 Estimating the probability distribution $p(y|x)$, we can do that using a maximum likelihood estimation to find the best parameter vector $\theta$ for a parametric family of distribution $p(y|x;\theta)$. 
 
@@ -16,7 +16,7 @@ $$p(y = 1|x, \theta) = \sigma(\theta^T x)$$
 
 Logistic regression is a misnomer and is not a regression but does classification by minimizing the negative log-likelihood using gradient descent. 
 
-#### Support Vector Machines (SVM)
+### Support Vector Machines (SVM)
 
 Similar to logistic regression, SVMs are driven by a linear function $w^T x+ b$. SVMs do not provide probability but only output a class identification. SVM predicts a positive class when $w^Tx + b$ is greater than zero, and a negative class when $w^Tx + b$ is less than zero. 
 
@@ -43,10 +43,10 @@ The Gaussian kernel can be thought of as a template. A training example of mappi
 
 An algorithm using kernel trick is called _kernel machines_. A major drawback of kernel machine is the cost of evaluating the decision function is linear in the number of examples $(i)$ in $\alpha_i k (x, x^i)$. SVMs mitigate by learning a vector of $\alpha$ that contain mostly zeros. Classifying a new example, therefore, requires evaluating the kernel function only for the training examples that have non-zero $\alpha_i$. Training examples are called _support vectors_.
 
-### k-nearest neighbors
+## k-nearest neighbors
 
 When we want to produce an output $y$ for a new test input $x$, we find the k-nearest neighbors to $x$ in the training data $X$. We then return the average of the corresponding $y$ values in the training set. This works for any supervised learning where we can take the average over $y$ values. For classification, the average can be used to determine the probability distribution over a class. The non-parametric k-nearest neighbor algorithm _cannot learn features_ and is computationally intensive for large datasets and less accurate on small datasets.
 
-### Decision trees
+## Decision trees
 
 Decision trees break the input space into regions. Each node is associated with a region, and internal nodes break that region into one subregion for each child node. Space is subdivided into non-overlapping regions with a one-to-one correspondence between leaf nodes and input regions. Each leaf node maps every point in its input region to the same output. Each leaf requires at least one training example to define, so the decision tree cannot learn a function with more local maxima than the number of training examples. 

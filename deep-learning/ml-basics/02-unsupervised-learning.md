@@ -1,4 +1,4 @@
-## Unsupervised learning
+# Unsupervised learning
 
 Unsupervised learning algorithms are those that experience only "features" but not a supervision signal, e.g., density estimation, learning to draw samples from a distribution, learning to denoise data from some distribution.
 
@@ -9,7 +9,7 @@ Find the "best" representation of the data that preserves as much information ab
 
 - *Independent representation*: Attempts to disentangle the source of variation underlying the data distribution such that the dimension of representation are statistically independent. 
 
-### Principal Component Analysis
+## Principal Component Analysis
 
 PCA can be thought of as an unsupervised learning algorithm that learns a representation that has low dimensions than the original input. PCA learns a representation where the elements have no linear correlations with each other. The algorithm must remove the non-linear relationships between variables to achieve full independence. 
 
@@ -18,7 +18,7 @@ PCA learns an orthogonal, linear transformation of the data that projects an inp
 Consider a design matrix $X$ of size $m\times n$. The data has a mean of zero $\mathbb{E} [x] = 0$. The unbiased sample variance of $X$ is $Var(X) = \frac{1}{m-1}X^TX$. PCA finds a representation (through linear transformation) $z = W^Tx$, where $Var(z)$ is a diagonal matrix $= \frac{1}{m-1}\Sigma^2$. When we project the data $x$ to $z$ via linear transformation $W$, the representation has a diagonal covariance of the matrix $\Sigma^2$ which immediately implies the individual elements of $z$ are mutually uncorrelated. Removing the correlations is one aspect of dependency between elements, to disentangle more complicated forms of feature dependencies, we need more than a simple linear transformation. 
 
 
-### k-means clustering
+## k-means clustering
 
 The k-means clustering divides the training set into $k$ different clusters of examples that are near each other. The algorithm provides k-dimensional one hot-code vector $\mathbf{h}$ representing an input $x$. If $x$ belongs to cluster $i$, then $h_i = 1$ and all other entries of representation of $\mathbf{h}$ are zero. k-means is a _sparse representation_ with only one element being non-zero. 
 
@@ -27,7 +27,7 @@ The k-means initializes k-different categories $\{\mu^1, \dots \mu^k\}$ and alte
 Clustering is ill-posed; there is no single criterion that measures how well a clustering of the data or its representation corresponds to the real world values. The different clustering algorithms can correspond well to some properties of the real world. Consider we have a dataset of red trucks, red cars, gray trucks, and gray cars. Two different clustering algorithms can cluster them based either in terms of the type of vehicle or in terms of their colors. A third clustering algorithm can classify them into four distinct categories, but this loses the feature of similarity between different types. Hence, we prefer distributed representations to one-hot representation and gives us the ability to measure the similarity between objects by comparing many attributes instead of just testing if one attribute matches. 
 
 
-### Stochastic Gradient Descent (SGD)
+## Stochastic Gradient Descent (SGD)
 
 A large training set is necessary for good generalization but is computationally expensive. The cost function in ML can be decomposed as a sum over training examples of some per example loss function, e.g., the negative conditional log-likelihood of the training data:
 
