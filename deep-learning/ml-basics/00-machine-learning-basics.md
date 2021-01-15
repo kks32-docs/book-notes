@@ -155,3 +155,108 @@ Maximum Likelihood estimator has the property of _consistency_, as the number of
 
 
 For large $m$, consistent estimators have lower Mean Square Error (MSE) than the maximum likelihood estimator. For reasons of consistency and efficiency, maximum likelihood is often considered the preferred estimator to use for ML. When the number of examples is small enough to yield overfitting behavior, regularization strategies such as weight decay may be used to obtain a biased version of maximum likelihood that has less variance when training data is limited. 
+
+## Bayesian Statistics
+
+Frequentist Statistic that involves estimating a single estimate of $\theta$ making all future predictions from the one estimate. On the other hand, estimating all possible values of $\theta$, when making a prediction is called *Bayesian Statistics*. In frequentist prediction, the true value of $\theta$ is fixed but unknown, while the point estimate of $\hat{\theta}$ is a random variable, which is a function of the dataset. Bayesian uses probability to reflect degrees of certainty in the states of knowledge. The dataset is directly observed and not random. While the true parameter $\theta$ is unknown or uncertain, so represented as a random variable. 
+
+Before observing the data, we represent our knowledge of $\theta$ using _prior probability distribution_ $p(\theta)$. In ML, the prior distribution is quite broad (high entropy to reflect the uncertainty) in the value of $\theta$ before observing the data. 
+
+Consider a set of data $\left\{x^1, \dots x^m \right\}$, we can recover the effect of data on our believe about $\theta$ by combining the data likelihood $p(x^1, \dots, x^m | \theta)$ with the prior via Bayes' rule:
+
+$$p(\theta|x^1, \dots, x^m) = \frac{p(x^1, \dots, x^m|\theta)p(\theta)}{p(x^1, \dots, x^m)}$$
+
+In this scenario, the prior begins as a high entropy uniform distribution or Gaussian distribution, and the observation of data usually causes the posterior to lose entropy and concentrate around a few highly likely values of the parameters.
+
+Unlike the maximum likelihood, Bayes makes predictions using a full distribution over $\theta$. After observing the dataset, if we are still uncertain about the value of $\theta$, this uncertainty is incorporated directly into the predictions we make. The bayesian approach incorporates uncertainty by integrating over the estimator. After observing $m$ examples, the predicted distribution over the next data sample $x^{m+1}$ is:
+
+$$p(x^{m+1}|x^1, \dots, x^m) = \int p(x^{m+1}|\theta)p(\theta|x^1, \dots, x^m) d\theta$$
+
+The prior in Bayes shifts the probability mass density towards regions of the parameter space that are prepared apriori. Bayes is computationally expensive when learning on large training examples.
+
+### Bayesian Linear Regression
+
+Consider the mapping of input vector $x \in \mathbb{R}^n$ to predict a scalar $y \in \mathbb{R}$. The prediction is parameterized by the vector $w \in \mathbb{R}^n$. 
+
+$$\hat{y} = w^T x$$
+
+Given a set of $m$ training samples $(X^{train}, y^{train})$ we can expression the prediction 
+
+$$\hat{y}^{train} = X^{train} w$$
+
+Expressed as a Gaussian distribution on $y^{train}$
+
+$$p(y^{train}|X^{train},w) = \mathcal{N}(y^{train} | X^{train}, w, I$$
+
+Gaussian is used as a prior
+
+$$p(w) = \mathcal{N}(w; \mu_0, \Lambda_0)$$
+
+Where $\mu_0$ is the mean vector and $\Lambda_0$ is the covariance matrix. 
+
+$$p(w|X,y) \propto p(y|X, w)p(w)$$
+
+which is a Gaussian distribution $\Lambda_m =( X^T X, \Lambda_0^{-1})^{-1}$.
+
+$$\mu_m = \Lambda_m(X^Ty + \Lambda_0^{-1} + \mu_0)$$
+
+The distribution must be normalized to integrate to 1. 
+
+$$p(w|X, y) \propto \exp(-0.5(w - \mu_m)^T \Lambda_m^{-1}(w - \mu_m))$$
+
+if $\mu_0 =0, \Lambda_0 = \frac{1}{\alpha}I$, then $\mu_m$ gives the estimate of $w$ similar to a frequentist linear regression with a weight decay of $\alpha w^T w$. Bayesian distribution is undefined for $\alpha = 0$ or for infinite wide prior of $w$. Bayes provides a covariance matrix of highly likely values of $w$. 
+
+### Maximum A Posterior (MAP) estimate
+
+Bayes predicts posterior over parameter $\theta$ desirable to have single-point estimates. MAP estimate chooses the point of the maximum posterior probability. 
+
+$$\theta_{MAP} = \arg \max_\theta p(\theta | x) = \arg \max_\theta \log p(x|\theta) + \log p(\theta)$$
+
+The $\log p(x|\theta)$ is the standard log-likelihood, and $\log p(\theta)$ is the prior similar to $\lambda w^T w$ weight decay function and does not affect the learning process because it is independent of $w$.  
+
+The additional prior brings useful information not present within the training data and helps reduce variance in MAP point estimate but increases the bias. 
+
+### Supervised learning
+
+Learning algorithms that learn to associate some input with some output give a training set of examples of input $x$ and output $y$ provided by a "human supervisor". 
+
+#### Probabilistic supervised learning
+
+Estimating the probability distribution $p(y|x)$, we can do that using a maximum likelihood estimation to find the best parameter vector $\theta$ for a parametric family of distribution $p(y|x;\theta)$. 
+
+Linear regression can be written as:
+
+$$p(y|x, \theta) = \mathcal{N}(y; \theta^Tx, I)$$
+
+We can generalize linear regression to classification scenarios by defining a different family of probability distributions. If we have two classes (class 0 and class 1), we need to specify the probability of one class (class 0 or 1) because values of probabilities must add to 1. The normal distribution is parameterized in terms of a mean. Any value of this mean is valid. On the other hand, a distribution over binary variables is more complex because its mean should always be between 0 and 1. Using the logistic sigmoid function to have values between 0 and 1, we can enforce this condition:
+
+$$p(y = 1|x, \theta) = \sigma(\theta^T x)$$
+
+Logistic regression is a misnomer and is not a regression but does classification by minimizing the negative log-likelihood using gradient descent. 
+
+#### Support Vector Machines (SVM)
+
+Similar to logistic regression, SVMs are driven by a linear function $w^T x+ b$. SVMs do not provide probability but only output a class identification. SVM predicts a positive class when $w^Tx + b$ is greater than zero, and a negative class when $w^Tx + b$ is less than zero. 
+
+
+**Kernel trick** consists of observing many many ML algorithms be written exclusively in terms of dot products between examples. 
+
+$$w^T x + b = b + \sum_{i=1}^m \alpha_i x^T x^{(i)}$$
+
+$x^i$ is the training example and $\alpha$ is the vector of coefficients. Rewriting allows us to replace $x$ with the output of a given feature function $\phi(x)$ and the dot product with the form $k(x, x^i) = \phi(x) \cdot \phi(x^i)$ called a kernel and is the inner product analogous to $\phi(x)^T \phi(x^i)$. 
+
+After replacing the dot product with kernel function, we can make predictions:
+
+$$f(x) = b + \sum_i \alpha_i k(x, x^i)$$
+
+The function is nonlinear with respect to $x$ but the relationship between $\phi(x)$ and $f(x)$ is linear. The kernel-based function is equivalent to preparing the data and applying $\phi(x)$ to all inputs, then learning a linear model in transformed space. 
+
+Kernels enable us to learn models that are nonlinear in $x$ using a convex optimization technique that is guaranteed to converge efficiently. We assume $\phi$ is fixed and optimize $\alpha$. Optimization is in a linear space. The kernel function is significantly less computationally intensive than taking the dot product of $\phi(x)$ vectors. 
+
+The kernel allows us to accommodate infinite dimensions of $\phi(x)$, which are intractable (problems that can be solved in theory, but in practice is not possible due to too much need for the resource) as a tractable problem.  Construct a feature map $\phi(x)$ with non-negative values of $x$. Suppose this returns a mapping of $x$ ones followed by infinitely many zeros, we can write a kernel $k(x, x^{(i)}) = \min (x, x^{(i)})$ that is exactly equal to the corresponding infinite dimension dot product. 
+
+Commonly used kernel is the Gaussian kernel: $k(u, v) = \mathcal{N}(u-v; 0, \sigma^2 I)$ is the _radial basis function _ whose values decrease along lines in $v$ space radially outward from $u$. 
+
+The Gaussian kernel can be thought of as a template. A training example of mapping $x$ to $y$ is a template for $y$ when a new point $x^\prime$ is close $x$ the Gaussian kernel has a large response indicating $x^\prime$ is very similar to $x$ template. The model then puts a large weight on the associated training label $y$. Overall the prediction will combine many such training labels weighted by their similarity of the corresponding training example. 
+
+An algorithm using kernel trick is called _kernel machines_. A major drawback of kernel machine is the cost of evaluating the decision function is linear in the number of examples $(i)$ in $\alpha_i k (x, x^i)$. SVMs mitigate by learning a vector of $\alpha$ that contain mostly zeros. Classifying a new example, therefore, requires evaluating the kernel function only for the training examples that have non-zero $\alpha_i$. Training examples are called _support vectors_.
