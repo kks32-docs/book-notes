@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
+            "file": "deep-learning/basics/01-linear-algebra.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "deep-learning/basics/01-linear-algebra.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "deep-learning/basics/01-linear-algebra.md"
               }
             }
           }
@@ -95,6 +95,8 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/basics/01-linear-algebra.md",
+    "deep-learning/basics/00-introduction.md",
     "_sidebar.md",
     "Untitled.md",
     "deep-learning/ml-basics/02-unsupervised-learning.md",
@@ -102,8 +104,6 @@
     "deep-learning/ml-basics/00-machine-learning-basics.md",
     "README.md",
     "deep-learning/basics/02-probability-theory.md",
-    "deep-learning/basics/04-numerical-methods.md",
-    "deep-learning/basics/03-information-theory.md",
-    "deep-learning/basics/02-probability-information-theory.md"
+    "deep-learning/basics/04-numerical-methods.md"
   ]
 }

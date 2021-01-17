@@ -21,7 +21,7 @@ The depth of a neural network could represent the number of sequential operation
 
 ### Neural perspective of DL
 
-Deep Learning is concerned about building computer systems that can successfully solve tasks that require intelligence. DL started with the neural perspective of reproducing the computational aspect of the brain to recreate intelligent behavior, and the other perspective is to understand the brain and principles behind human intelligence. 
+Deep Learning is concerned about building computer systems that can successfully solve tasks that require intelligence. DL started with the neural perspective of reproducing the computational aspect of the brain to recreate intelligent behavior. The other perspective of DL is to understand the brain and principles behind human intelligence. 
 
 DL goes beyond the neural perspective to a more general principle of learning _multi-level composition_. Early example is a linear model that learns a linear mapping of $n$ input values $x_1, \dots x_n$ to an output value $y$. The model learns a set of weights $w_1, \dots w_n$ and computes $f(x, w) = x_1 w_1 + x_2 w_2 + \dots x_n w_n$. Linear models remain some of the widely used DL algorithms, but have certain limitations. The popular limitation of the linear model is its inability to learn the XOR function:
 
