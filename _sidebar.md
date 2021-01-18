@@ -17,3 +17,7 @@
     * [Supervised learning](deep-learning/ml-basics/01-supervised-learning.md)
     * [Unsupervised learning](deep-learning/ml-basics/02-unsupervised-learning.md)
     * [Curse of dimensionality](deep-learning/ml-basics/03-ml-design.md)
+
+  * **Deep networks**  
+    * [Feedforward networks](deep-learning/deep-networks/00-feedforward-networks.md)
+    
