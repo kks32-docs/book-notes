@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
+            "file": "deep-learning/deep-networks/01-gradient-based-learning.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "deep-learning/deep-networks/01-gradient-based-learning.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "deep-learning/deep-networks/01-gradient-based-learning.md"
               }
             }
           }
@@ -95,6 +95,7 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/deep-networks/01-gradient-based-learning.md",
     "_sidebar.md",
     "Untitled.md",
     "deep-learning/deep-networks/00-feedforward-networks.md",
@@ -103,7 +104,6 @@
     "deep-learning/basics/00-introduction.md",
     "deep-learning/ml-basics/02-unsupervised-learning.md",
     "deep-learning/ml-basics/01-supervised-learning.md",
-    "deep-learning/ml-basics/00-machine-learning-basics.md",
-    "README.md"
+    "deep-learning/ml-basics/00-machine-learning-basics.md"
   ]
 }

@@ -66,4 +66,58 @@ By rewriting in terms of the softplus function, we can see it only saturates whe
 
 ### Softmax for Multinoulli distribution
 
-Softmax is useful when defining distributions over a discrete variable with $n$ possible values: $\hat{y}_i = P(y=i|x)$. For a linear layer with unnormalized log probabilities $z = w^T h + b$, $z_i = \log \tilde{P}(y=i|x)$ the softmax function is $softmax(z)_i = \frac{\exp(z_i)}{\sum_j\exp(z_j)}$. Using the maximum log likelihood $\log softmax (z)_i = z_i - \log \sum_j \exp(z_j)$. The first term shows input $z_i$ always has a direct contribution to the cost function. As this term cannot saturate learning can proceed even if the second term becomes too small.
+Softmax is useful when defining distributions over a discrete variable with $n$ possible values: $\hat{y}_i = P(y=i|x)$. For a linear layer with unnormalized log probabilities $z = w^T h + b$, $z_i = \log \tilde{P}(y=i|x)$ the softmax function is $softmax(z)_i = \frac{\exp(z_i)}{\sum_j\exp(z_j)}$. Using the maximum log likelihood $\log softmax (z)_i = z_i - \log \sum_j \exp(z_j)$. The first term shows input $z_i$ always has a direct contribution to the cost function. As this term cannot saturate learning can proceed even if the second term becomes too small. The first term encourage $z_i$ to be pushed up, while second term encourages all $z$ be pushed down. $\log \sum_j \exp(z_j) \approx \max_j z_j$ when $\exp(z_k)$ is insignificant for any $z_k$ that is noticeably less than $\max_j z_j$. The intuition is we strongly penalize the most active incorrect prediction. 
+
+Objective function with log works best with softmax to undo the exponential; if not, the models fail to learn. In particular square error is a poor loss function for softmax units even if the model makes highly confident predictions, but the predictions will be incorrect.
+
+Softmax turns a vector of $k$ real values to a vector of $k$ real values that sum to 1. If the input is small or negative, it turns to a small probability; larger values turn into a large probability but will always remain between 0 and 1. Softmax is a softened version of $\arg \max$ and is continuous and differentiable. Softmax is written as:
+$$ softmax(z)_i = \frac{\exp^z_i}{\sum_{j=1}^k \exp^z_j}$$
+
+A general stable form of softmax identity is: $softmax(z) = softmax(z - \max_i z_i)$. Softmax is driven by the amount that its arguments deviate from $\max_i z_i$. An output softmax $(z_i)$ saturates to 1, when the corresponding input is maximal $(z_i = \max_i z_i)$. The output can also saturate to 0 when $z_i$ is not maximal, and the maximum is much greater. If the loss function is not designed to compensate the exponent in the softmax, the model will fail to learn. At extreme softmax is the winner-takes-all function, when one of the output is nearly 1, and the others are 0.
+
+### Other output types
+Consider that we want to learn the variance of a conditional Gaussian for $y$ given $x$. The maximum log-likelihood estimator of the variance is simply the empirical mean of the square difference between observations $y$ and their expected value. 
+
+In general, we define a conditional distribution $p(y| x; \theta)$ the principle of maximum likelihood suggests we use $- \log p (y|x;\theta)$ as our cost function. We think of neural networks as representing a function $f(x; \theta)$. The output of this function are not direct prediction of the value of $y$, but $f(x;\theta) = w$ provides the parameters for distribution over $y$. The loss function can be interpreted as $-\log p(y; w(x))$.
+
+Gradient computations involving division (such as variance calculations) result in arbitrary steep slopes near zero and affect the learning. 
+
+
+## Hidden units
+### Rectified Linear Units (ReLU)
+There are no definitive guiding theoretical principles behind the choice of hidden units. The ReLU is an excellent default choice. Predicting in advance which hidden unit will work best is usually impossible. 
+
+ReLU $g(z) = \max {0, z}$ is not differentiable at $z=0$, but gradient descent still performs well enough for ML tasks because the neural network training algorithms do not usually arrive at a local minimum, but instead simply reduce its value significantly. Most hidden units can be described as accepting a vector of input $x$, computing an affine transformation $z = W^T x + b$ and then applying an element-wise non-linear function $g(z)$. Most hidden units differ on the choice of the activation function $g(z)$. 
+
+ReLU is similar to linear units, so easy to optimize and outputs zero across half its domain that makes the derivatives through a ReLU remain large whenever the unit is active. Derivatives of ReLU is one everywhere the unit is active; the gradient direction is far more useful for learning and does not introduce any second-order effects.  $h = g(W^Tx + b)$, usually setting $b$ to be a small positive value of 0.1. The drawback of ReLU is it cannot learn with gradient-based methods on examples for which their activation is zero.
+
+Generalize ReLU is written as: when $z_i < 0$, $h_i = g(z, \alpha)_i = \max(0, z_i) + \alpha_i \min(0, z_i)$. When $\alpha_i$ is set to 0.01 it is called **LeakyReLU** and the parametric ReLU or **PReLU** is when $\alpha_i$ is a learning parameter. 
+
+### Maxout units
+Maxout units are generalize ReLU. Instead of applying an element-wise function $g(z)$, maxout units divide $z$ into groups of $k$ values and each maxout unit then outputs the maximum element of one of the groups:
+
+$$g(z)_i = \max_{j \in G^{(i)}} z_j$$
+
+Maxout provides a way of learning piece-wise linear function that responds to multiple directions in input $x$. 
+
+*Catastrophic forgetting* is when neural networks forget how to perform tasks that they were trained on in the past. 
+
+### Logistic sigmoid and hyperbolic tangent
+
+$$g(z) = \sigma(z)$$ 
+
+The sigmoid function is output units to predict the probability that an arbitrary variable is 1. Sigmoid saturates over a wide range and is strong near zero. Difficult to use with gradient-based learning
+
+$$g(z) = \tanh(z) = 2\sigma(2z) - 1$$
+
+Hyperbolic tangent performs better than sigmoid functions because $\tanh(0)=0$ while $\sigma(0)=0.5$. Sigmoid functions are more common in models other than feedforward networks, such as the recurrent networks and other probability models.
+
+### Other hidden units
+
+Having no activation $g(z)$ is also a possibility where the layer is purely linear. Linear hidden units are an efficient way of reducing the number of parameters in a network. 
+
+Other common hidden units are:
+
+- _Radial Basis Function_: Saturates to 0 for most values of $x$ and is difficult to optimize
+- _Softplus function_: Smooth version of the rectifier. It is generally discouraged to use the softplus function as it generates counterintuitive results and empirically performs worse than ReLU, although it is differentiable everywhere, unlike ReLU.
+- _Hard tan_: Similar to $\tanh$ and rectifier but is bounded $g(a) = \max(-1, min(1, a))$.
