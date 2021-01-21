@@ -151,6 +151,10 @@ $$\frac{dz}{dx} = \frac{dz}{dy}\frac{dy}{dx}$$
 
 In a more general form:
 
-$$\frac{dz}{dx_i} = \sum_j  \frac{dz}{dy_j}\frac{dy_j}{dx_i}$$
+$$\frac{\partial z}{\partial x_i} = \sum_j  \frac{\partial z}{\partial y_j}\frac{\partial y_j}{\partial x_i}$$
+
+For Tensors $\mathbf{Y} = g(\mathbf{X})$ and $z = f(\mathbf{Y})$, then
+
+$$\nabla_\mathbf{X} z = \sum_j (\nabla_{\mathbf{X}}Y_j) \frac{\partial z}{\partial Y_j}$$
 
 
