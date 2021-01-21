@@ -121,3 +121,36 @@ Other common hidden units are:
 - _Radial Basis Function_: Saturates to 0 for most values of $x$ and is difficult to optimize
 - _Softplus function_: Smooth version of the rectifier. It is generally discouraged to use the softplus function as it generates counterintuitive results and empirically performs worse than ReLU, although it is differentiable everywhere, unlike ReLU.
 - _Hard tan_: Similar to $\tanh$ and rectifier but is bounded $g(a) = \max(-1, min(1, a))$.
+
+
+## Architecture
+
+Architecture refers to the overall structure of the network: the number of units and how they are connected to each other. Neural networks are typically organized into groups of units called __layers__, with each layer being a function of the layer preceding it like a chain structure. The first layer is written as $h^{(1)} = g^{1} ({W^{(1)}}^Tx + b^{(1)})$ and the second layer as $h^{(2)} = g^{2} ({W^{(2)}}^Tx + b^{(2)})$. The main architecture considerations are the depth and the width of each layer. Deeper units often use far fewer units per layer and far fewer parameters. _The ideal network architecture for a task must be found via experimentation guided by monitoring the validation set error_.
+
+## Universal approximation theorem
+
+A feedforward network with a linear output layer and at least one hidden layer with any "squashing" activation function (such as logistic sigmoid) can approximate any Borel measurable function from one finite-dimensional space to another with any desired non-zero amount of error, provided there are enough hidden units. Any continuous function in a bounded subset of $\mathbb{R}^n$ is Borel measurable. 
+
+The property of universal approximation in feedforward networks allows one to represent nonlinear functions using linear models. Although MLP can represent nonlinear functions, the learning may still fail either because the optimization algorithm is unable to find the desired parameters or the training algorithm chooses the wrong function. For any function, there exists a feedforward network that approximates the function. However, there is no universal procedure for examining a training set of specific examples and choosing a function that will generalize to points, not in the training set. The number of hidden units in a shallow model is exponential in $n$, i.e., $O(2^n)$. 
+
+Although a single layer feedforward network, in theory, is sufficient to represent any function, the layer may be infeasibly large and may fail to learn and generalize correctly. The deeper model can reduce the number of units and the amount of generalization error. Choosing a deep model implies the function we want to learn should involve the composition of several simple functions. Empirically, however, greater depth doesn't seem to translate to better generalization for a wider variety of tasks. Using deeper architecture suggests that the architecture expresses a useful prior over the space of functions the model learns. Increasing the number of parameters without increasing the depth is not nearly as effective in increasing the test set performance. The function should consist of many simple functions composed together. Overfitting on shallow models can be tested by increasing the number of parameters and measure the test accuracy. 
+
+## Backpropagation
+
+When we use a feedforward network to accept an input $x$ and produce an output $\hat{y}$ information flows forward through the network. Input $x$ provides the initial information that then propagates up through the hidden units at each layer and finally produces $\hat{y}$. This is called __forward propagation__. During training, forward propagation continues until it produces a scalar cost $J(\theta)$. The __back propagation__ allows the information from the cost to then flow backward through the network in order to compute the gradient. Backpropagation only refers to the method of computing the gradient, and a method like stochastic gradient descent is used to perform the actual learning. 
+
+### Computational graphs
+
+Each node in a graph indicates a variable (scalar, vector, matrix, tensor, or another variable). An operation is a simple function of one or more variables that returns only a single output variable. Functions may be composed of many operations tied together. If a variable $y$ is computed by applying an operation to a variable $x$, we draw a directed edge from $x$ to $y$. We sometimes annotate the output node with the name of the operation applied. 
+
+### Chain rule of calculus
+
+Suppose $y = g(x)$ and $z = f(g(x)) = f(y)$. The chain rule states that:
+
+$$\frac{dz}{dx} = \frac{dz}{dy}\frac{dy}{dx}$$
+
+In a more general form:
+
+$$\frac{dz}{dx_i} = \sum_j  \frac{dz}{dy_j}\frac{dy_j}{dx_i}$$
+
+
