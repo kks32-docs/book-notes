@@ -8,10 +8,9 @@
         "type": "leaf",
         "active": true,
         "state": {
-          "type": "markdown",
+          "type": "image",
           "state": {
-            "file": "deep-learning/deep-networks/01-gradient-based-learning.md",
-            "mode": "preview"
+            "file": "deep-learning/deep-networks/symbolic-diff.png"
           }
         }
       }
@@ -69,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "deep-learning/deep-networks/01-gradient-based-learning.md",
+                "file": "deep-learning/deep-networks/symbolic-diff.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +83,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "deep-learning/deep-networks/01-gradient-based-learning.md"
+                "file": "deep-learning/deep-networks/symbolic-diff.png"
               }
             }
           }
@@ -95,15 +94,15 @@
     "width": 300
   },
   "lastOpenFiles": [
-    "deep-learning/deep-networks/01-gradient-based-learning.md",
+    "deep-learning/deep-networks/symbolic-diff.png",
+    "deep-learning/deep-networks/forward-propagation.png",
+    "deep-learning/deep-networks/03-backpropagation.md",
     "deep-learning/deep-networks/00-feedforward-networks.md",
+    "deep-learning/deep-networks/01-gradient-based-learning.md",
+    "deep-learning/deep-networks/Untitled.md",
     "_sidebar.md",
     "Untitled.md",
     "deep-learning/basics/02-probability-theory.md",
-    "deep-learning/basics/01-linear-algebra.md",
-    "deep-learning/basics/00-introduction.md",
-    "deep-learning/ml-basics/02-unsupervised-learning.md",
-    "deep-learning/ml-basics/01-supervised-learning.md",
-    "deep-learning/ml-basics/00-machine-learning-basics.md"
+    "deep-learning/basics/01-linear-algebra.md"
   ]
 }

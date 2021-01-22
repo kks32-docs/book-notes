@@ -133,28 +133,4 @@ A feedforward network with a linear output layer and at least one hidden layer w
 
 The property of universal approximation in feedforward networks allows one to represent nonlinear functions using linear models. Although MLP can represent nonlinear functions, the learning may still fail either because the optimization algorithm is unable to find the desired parameters or the training algorithm chooses the wrong function. For any function, there exists a feedforward network that approximates the function. However, there is no universal procedure for examining a training set of specific examples and choosing a function that will generalize to points, not in the training set. The number of hidden units in a shallow model is exponential in $n$, i.e., $O(2^n)$. 
 
-Although a single layer feedforward network, in theory, is sufficient to represent any function, the layer may be infeasibly large and may fail to learn and generalize correctly. The deeper model can reduce the number of units and the amount of generalization error. Choosing a deep model implies the function we want to learn should involve the composition of several simple functions. Empirically, however, greater depth doesn't seem to translate to better generalization for a wider variety of tasks. Using deeper architecture suggests that the architecture expresses a useful prior over the space of functions the model learns. Increasing the number of parameters without increasing the depth is not nearly as effective in increasing the test set performance. The function should consist of many simple functions composed together. Overfitting on shallow models can be tested by increasing the number of parameters and measure the test accuracy. 
-
-## Backpropagation
-
-When we use a feedforward network to accept an input $x$ and produce an output $\hat{y}$ information flows forward through the network. Input $x$ provides the initial information that then propagates up through the hidden units at each layer and finally produces $\hat{y}$. This is called __forward propagation__. During training, forward propagation continues until it produces a scalar cost $J(\theta)$. The __back propagation__ allows the information from the cost to then flow backward through the network in order to compute the gradient. Backpropagation only refers to the method of computing the gradient, and a method like stochastic gradient descent is used to perform the actual learning. 
-
-### Computational graphs
-
-Each node in a graph indicates a variable (scalar, vector, matrix, tensor, or another variable). An operation is a simple function of one or more variables that returns only a single output variable. Functions may be composed of many operations tied together. If a variable $y$ is computed by applying an operation to a variable $x$, we draw a directed edge from $x$ to $y$. We sometimes annotate the output node with the name of the operation applied. 
-
-### Chain rule of calculus
-
-Suppose $y = g(x)$ and $z = f(g(x)) = f(y)$. The chain rule states that:
-
-$$\frac{dz}{dx} = \frac{dz}{dy}\frac{dy}{dx}$$
-
-In a more general form:
-
-$$\frac{\partial z}{\partial x_i} = \sum_j  \frac{\partial z}{\partial y_j}\frac{\partial y_j}{\partial x_i}$$
-
-For Tensors $\mathbf{Y} = g(\mathbf{X})$ and $z = f(\mathbf{Y})$, then
-
-$$\nabla_\mathbf{X} z = \sum_j (\nabla_{\mathbf{X}}Y_j) \frac{\partial z}{\partial Y_j}$$
-
-
+Although a single layer feedforward network, in theory, is sufficient to represent any function, the layer may be infeasibly large and may fail to learn and generalize correctly. The deeper model can reduce the number of units and the amount of generalization error. Choosing a deep model implies the function we want to learn should involve the composition of several simple functions. Empirically, however, greater depth doesn't seem to translate to better generalization for a wider variety of tasks. Using deeper architecture suggests that the architecture expresses a useful prior over the space of functions the model learns. Increasing the number of parameters without increasing the depth is not nearly as effective in increasing the test set performance. The function should consist of many simple functions composed together. Overfitting on shallow models can be tested by increasing the number of parameters and measure the test accuracy.
