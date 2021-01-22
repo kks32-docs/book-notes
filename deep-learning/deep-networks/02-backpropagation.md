@@ -32,7 +32,7 @@ $$\frac{\partial u^{(n)}}{\partial u^{(j)}} = \sum_{i, j \in Pa(u^{(i)})} \frac{
 
 The subgraph $\mathcal{B}$ contains exactly one edge for each edge from node $u^{(j)}$ to node $u^{(i)}$ of $\mathcal{G}$. The edge from $u^{(j)}$ to $u^{(i)}$ is associated with the computation of $\partial u^{(i)}/\partial u^{(j)}$. Backpropagation is designed to reduce the number of operations without regard to memory and avoid exponential explosion in repeated sub-expressions.
 
-![](foward-propagation.png)
+![](forward-propagation.png)
 
 ![](backward-propagation.png)
 

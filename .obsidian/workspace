@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
+            "file": "deep-learning/deep-networks/02-backpropagation.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "deep-learning/deep-networks/02-backpropagation.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "deep-learning/deep-networks/02-backpropagation.md"
               }
             }
           }
@@ -95,15 +95,15 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/deep-networks/02-backpropagation.md",
+    "deep-learning/deep-networks/00-feedforward-networks.md",
+    "deep-learning/deep-networks/forward-propagation.png",
     "_sidebar.md",
     "deep-learning/deep-networks/03-backpropagation.md",
     "deep-learning/deep-networks/symbolic-diff.png",
-    "deep-learning/deep-networks/forward-propagation.png",
-    "deep-learning/deep-networks/00-feedforward-networks.md",
     "deep-learning/deep-networks/01-gradient-based-learning.md",
     "deep-learning/deep-networks/Untitled.md",
     "Untitled.md",
-    "deep-learning/basics/02-probability-theory.md",
-    "deep-learning/basics/01-linear-algebra.md"
+    "deep-learning/basics/02-probability-theory.md"
   ]
 }
