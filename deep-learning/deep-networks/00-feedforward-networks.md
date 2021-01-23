@@ -101,3 +101,5 @@ Now we apply the weight vector $w = \begin{bmatrix} 1 \\ -2 \\ \end{bmatrix}$ to
 \end{bmatrix}$$
 
 The neural network has obtained the correct answer for every example in the batch.
+
+
