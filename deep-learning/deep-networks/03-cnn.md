@@ -21,3 +21,17 @@ Convolution and pooling underfit the data. If a task relies on preserving precis
 
 ![](cnn.png)
 
+
+If we want to sample only every $s$ pixels in each direction in the output, then we downsample the convolution function, and $s$ is the stride of this downsampled convolution. 
+
+CNNs implicitly zero-pad their inputs, without which the representation shrinks by the kernel width minus a single pixel at each layer.  If the input image has width $m$ and the kernel has width $k$, without padding, the output shrinks by $m-k+1$. Since the shrinkage is a non-zero positive value, it limits the number of possible layers in the network. Zero paddings allow control of both the kernel width and size of the output independently. Zero padding results mean input pixels near the border influence fewer output pixels, hence somewhat underrepresented in the model than the input pixels near the center. 
+
+The locally connected layer has no parameter sharing; each edge has its own parameters. In contrast, CNNs have shared parameters with the same weights across the entire input. Locally connected layers are useful when we know that each feature should be a function of a small part of space, but there is no reason to think that the same feature should occur across all of space. E.g., the mouth only occurs at the bottom of the face. 
+
+Reducing the number of interactions between channels allow the network to have a fewer parameter, reducing memory consumption, increasing statistical efficiency and reducing the amount of computation needed to perform forward and back-propagation. Reducing interactions between channels accomplishes this goal without reducing the number of hidden units. 
+
+Tiled convolution is a compromise between a convolution layer and a locally connected layer. Rather than learning a separate set of weights at every spatial location, we learn a set of kernels that we rotate as we move through space. 
+
+Generally, we do not use only a linear operation to transform from the inputs to the outputs in a convolution layer. In CNNs, it is typical to have one bias per channel of the output and share it across all locations. 
+
+Convolution does not make sense if the input has variable size because it can optionally include different kinds of observations. For e.g., if we are processing college applications with both grades and standardized tests, but not every applicant has a standardized test, it does not make sense to convolve the same weights over features corresponding to the grades as well as features corresponding to test scores. Convolution can be done on variable size inputs as long as the __ contains a varying amount of observations of the same kind of thing__ (e.g., different sized images).
