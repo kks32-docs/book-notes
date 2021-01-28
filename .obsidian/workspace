@@ -10,8 +10,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "README.md",
-            "mode": "source"
+            "file": "deep-learning/deep-networks/04-regularization.md",
+            "mode": "preview"
           }
         }
       }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "deep-learning/deep-networks/04-regularization.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "deep-learning/deep-networks/04-regularization.md"
               }
             }
           }
@@ -95,15 +95,15 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "deep-learning/deep-networks/04-regularization.md",
+    "deep-learning/deep-networks/03-cnn.md",
     "README.md",
     "_sidebar.md",
     "deep-learning/deep-networks/Untitled.md",
-    "deep-learning/deep-networks/03-cnn.md",
     "deep-learning/deep-networks/cnn/cnn.md",
     "deep-learning/cnn/cnn.md",
     "deep-learning/cnn/Untitled.md",
     "deep-learning/deep-networks/02-backpropagation.md",
-    "deep-learning/deep-networks/00-feedforward-networks.md",
-    "deep-learning/deep-networks/forward-propagation.png"
+    "deep-learning/deep-networks/00-feedforward-networks.md"
   ]
 }
