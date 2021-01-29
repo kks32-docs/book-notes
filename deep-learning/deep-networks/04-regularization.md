@@ -45,3 +45,29 @@ Most datasets have some mistakes in the $y$ labels. It can be harmful to maximiz
 
 Multitask learning is a way to improve generalization by pooling the examples. With more training data, the model generalizes. Similarly, sharing parts of models across tasks constraints the model towards good values (assuming sharing is justified) and yield better generalization.
 
+## Early stopping
+
+When training a large model with the ability to overfit, the training error may decrease, but the validation error begins to rise again. Every time the error on validation improves, we store a copy of model parameters and return these parameters rater than the lastest parameters when the training algorithm terminates. The algorithm terminates when no parameters have improved over the best-recorded validation error for some predefined number of iterations. 
+
+A smaller validation set or less frequent checks against the validation set is done to minimize computational cost. Additionally, storage cost is incurred in storing a copy of the best parameters. Early stopping can be used with other regularization techniques and does not affect the learning dynamics. 
+
+For small gradients, early stopping is equivalent to $L^2$ regularization. The training iterations play a role inversely proportional to the $L^2$ regularization parameters. The inverse of $\tau\epsilon$ plays the role of weight decay coefficients, where $\tau$ is the number of iterations, and $\epsilon$ is the learning rate. Early stopping automatically determines the correct amount of regularization by computing the validation set error, while weight decay requires many training experiments with different hyperparameters. 
+
+## Sparse representation
+
+Weight decay places penalty directly on model parameters. Another strategy is to place the penalty on the activation of units in a neural network encouraging their activation to be sparse: $y = A x \rightarrow y = B h$, where $h$ is a function of $x$ a way of representing information in $x$ but as a sparse vector. Just like $L^1$ penalty on parameters induces parameter sparsity, an $L^1$ penalty on the elements of the representation induces representation sparsity: $\Omega(h) = ||h||_1 = \sum_i |h_i|$. 
+
+## Bagging and other ensemble methods
+Bagging short for bootstrap aggregation combines several models to reduce the generalization error. Train several models separately, then vote on the output for test examples. This is an example of a general strategy in machine learning called *model averaging*. Techniques employing this strategy are known as ensemble methods. Different models are not likely to make the same errors on the test set. If the errors are correlated, the mean square error (MSE) is the variance $v$, and model averaging is useless. When the errors are perfectly uncorrelated, the MSE of the ensemble is on $\frac{v}{k}$, where $k$ is the number of models. 
+
+Bagging involves constructing $k$ different datasets. Each dataset has the same number of examples as the original dataset but is constructed from resampling the original dataset, so it is missing some of the examples - this resampling to generate a new dataset is called *Bootstrapping*.
+
+Differences in random initialization, in a random selection of mini-batches, or in non-deterministic implementation of neural networks are often enough to cause different members of an ensemble to make partially independent errors. Thus model averaging is beneficial even if all models are trained on the same dataset. Any ML algorithm can benefit from model averaging. 
+
+## Dropout
+
+Bagging is computationally expensive to train large models. Typically, an ensemble has between 5 and 10 models. Dropout trains the ensemble consisting of all subnetworks that can be formed by removing non-output units from an underlying base network. Dropout approximates the bagging process but with an exponentially large number of networks. Dropout provides an inexpensive approximation to train and evaluate a bagged ensemble of exponentially many neural networks. This is done by minibatch with stochastic gradient descent each time applying a randomly sampled binary mask to all the input and hidden units in the network. The probability of sampling a mask value of 1 (causing a unit to be included) is a hyperparameter fixed before training begins. Typically input unit probability for inclusion is 0.8 while that of a hidden unit is 0.5. 
+
+Suppose that a mask vector $\mu$ specifies which units to be included, and $J(\theta, \mu)$ is the cost of a model defined by parameters $\theta$ and mask $\mu$. The dropout minimizes $\mathbb{E}_\mu J(\theta, \mu)$. In bagging, the models are all independent. In dropout, models share parameters, with each model inheriting a different set of parameters from the parent. In dropout, a tiny fraction of subnetwork is trained due to the size of some large neural nets. 
+
+To make a prediction, a bagged ensemble must accumulate votes for all its members, called as *inference*. Each model $i$ produces a probability distribution $p^{(i)}(y|x)$. The ensemble prediction is the arithmetic mean of the distribution $\frac{1}{k}\sum_{i=1}^k p^{(i)}(y|x)$. In case of dropout each submodel defined by a mask vector $\mu$, defines a probability distribution $p(y|x,\mu) = \sum_\mu p(\mu) p(y|x, \mu)$. $p(\mu)$ is the probability that was used to sample $\mu$ at training time. Typically, 10 to 20 masks are sufficient to obtain good performance.
