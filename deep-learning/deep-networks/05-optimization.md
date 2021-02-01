@@ -1,0 +1,33 @@
+# Optimization
+Optimization involves finding the parameter $\theta$ of a neural network that significantly reduces a cost function $J(\theta)$, which includes a performance measure evaluated on the entire training set as well as regularization terms. 
+
+In ML, we care about some performance measure $P$, which is defined with respect to a training set and may also be intractable. We optimize $P$ indirectly by reducing a cost function $J(\theta)$ hoping that will improve $P$, which is different from pure optimization where minimizing $J$ is a goal in and of itself. Expectation across data-generating distribution is: $J^*(\theta) = \mathbb{E}_{(x, y)\sim p_{data}} L(f(x;\theta), y)$, where $L$ is the per example loss function. The goal of ML is to reduce the expected generalization error. This quantity is known as the risk. The training process based on minimizing the average training error is known as *empirical risk minimization*. Rather than optimizing the risk directly, we optimize the empirical risk and hope that the risk decreases significantly as well. Empirical risk minimization is prone to overfitting. 
+
+Surrogate loss function acts as a proxy to the loss function we care about, such as the negative log-likelihood of the correct class is used as a surrogate for 0-1 loss function, which has no useful derivatives (derivatives are either zero or undefined everywhere). The negative log-likelihood allows the model to estimate the conditional probability of the classes given the input. If the model can do well, then it can pick the classes that yield the least classification error. 
+
+The main difference between optimization in general and optimization as we use for training algorithms is that they do not usually halt at a local minimum. Instead, an ML algorithm usually minimizes a surrogate loss function but halts when a convergence criteria based on early stopping is satisfied. 
+
+Another difference is the objective function usually decomposes as a sum over the training examples. Computing expectations exactly is very difficult because it requires evaluating the model over every example in the dataset. In practice, these expectations are computed by randomly sampling a small number of examples from the dataset and taking the average over those samples. The standard error of mean is $\sigma/\sqrt{n}$, where $\sigma$ is the true standard deviation. Consider two sample sizes of 100 and 10,000, the 10,000 sample size requires 100 times more computation than the sample size of 100, but it only reduces the standard error by a factor of 10. 
+
+A statistical estimation of the gradient is also beneficial as, in practice, there may be redundant examples in the training set or examples that make very similar contributions to the gradient. "Batch gradient" means an algorithm that uses the *full training set*. The size of examples used in stochastic methods depend on:
+- Large batch sizes are more accurate but with less than linear returns
+- Multicore architectures are less effectively utilized by small batch sizes
+- The amount of memory required scales with the batch size and limits the batch sizes
+- Smaller batch sizes add some regularization effect by adding noise to the learning process. This requires a smaller learning rater and hence is slow.
+
+Some methods are sensitive to sampling effects. _Methods that compute the gradient $g$ are usually relatively robust and can handle small batches like 100. Second-order methods that compute the Hessian matrix $H^{-1}g$ require larger batch sizes like 10,000 to minimize fluctuations in the computation of $H^{-1}g$_. 
+
+Minibatches are computed based on random sampling and require the samples to be independent. Two subsequent gradient estimates, and therefore, two subsequent mini-batches must also be independent of each other. Many examples in the training set are arranged such that they are highly correlated, e.g., a dataset of blood samples taken at different times for different patients arranged by the patient order. Shuffling these examples usually reduces this error. _Failing to shuffle the examples in any way can seriously reduce the effectiveness of any algorithm_.
+
+SGD minimizes the generalization error. Most implementation of minibatch SGD shuffles the dataset once and then pass through it multiple times. On the first pass, each minibatch computes an unbiased estimate of the true generalization error. The estimates become biased in the second and subsequent passes as it is formed by resampling rather than new fair samples. Minibatch computes: $\hat{g} = \frac{1}{m} \nabla_\theta \sum_i L(f(x^{(i)};\theta), y^{(i)})$. Updating $\theta$ in the direction of $\hat{g}$ performs SGD on the generalization error. This only applies when the examples are not reused. In practice with the large growing dataset, each training example is used only once or even making incomplete passes through the training set. When using an extremely large training set, overfitting is no longer an issue. 
+
+## Challenges in neural network optimization
+Optimization in the neural network involves designing objective functions that are convex. Even convex functions have challenges when training neural nets. 
+
+### Illconditioning
+All condition can manifest by causing SGD to get "stuck" in the sense that even very small steps increase the cost function. The second-order Taylor series of the cost function predicts a gradient descent step of $\epsilon g$ will add $\frac{1}{2}\epsilon^2 g^T Hg - \epsilon g^T g$ to the cost function. Illconditioning of the gradient causes a problem when $\frac{1}{2}\epsilon^2 g^T Hg$ term is larger than $\epsilon g^T g$. In many cases, the gradient norm does not shrink significantly throughout the learning, but $\epsilon g^T g$ term grows by more than an order of magnitude. The learning becomes very slow despite steep gradients because the learning rater must shrink to compensate for the drastic changes in the curvature. 
+
+### Local minima
+Some convex functions have a flat region at the bottom rather than a single global minimum point. Any point on the flat region is an acceptable solution. DL models have a large number of local minima and can have higher costs than the global minimum. In practice, however, with sufficiently large neural networks, most local minima have a low-cost function value. It is important to find the true local minima rather than a point in parameter space that has a low but not minimal cost. A test that can rule out local minima is to plot the gradient with time. If the norm of gradient does not shrink to insignificant size, the problem is neither local minima nor any kind of critical points. 
+
+
