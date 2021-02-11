@@ -11,7 +11,7 @@
           "type": "markdown",
           "state": {
             "file": "deep-learning/deep-networks/05-optimization.md",
-            "mode": "source"
+            "mode": "preview"
           }
         }
       }
@@ -53,8 +53,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "7fea3d38c8f91c94",
