@@ -25,4 +25,5 @@
     * [Convolution Neural Network](deep-learning/deep-networks/03-cnn.md)
     * [Regularization](deep-learning/deep-networks/04-regularization.md)
     * [Optimization](deep-learning/deep-networks/05-optimization.md)
+    * [Recurrent Neural Network](deep-learning/deep-networks/06-rnn.md)
   

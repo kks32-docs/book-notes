@@ -4,14 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "c90bceb17c1c5f49",
+        "id": "04676616e57b5357",
         "type": "leaf",
         "active": true,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "deep-learning/deep-networks/05-optimization.md",
-            "mode": "source"
+            "file": "deep-learning/deep-networks/06-rnn.md",
+            "mode": "preview"
           }
         }
       }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "deep-learning/deep-networks/05-optimization.md",
+                "file": "deep-learning/deep-networks/06-rnn.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "deep-learning/deep-networks/05-optimization.md"
+                "file": "deep-learning/deep-networks/06-rnn.md"
               }
             }
           }
@@ -96,15 +96,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "deep-learning/deep-networks/05-optimization.md",
+    "deep-learning/deep-networks/06-rnn.md",
     "_sidebar.md",
+    "README.md",
     "deep-learning/deep-networks/Untitled.md",
+    "deep-learning/deep-networks/05-optimization.md",
     "deep-learning/deep-networks/04-regularization.md",
     "deep-learning/deep-networks/03-cnn.md",
-    "README.md",
     "deep-learning/deep-networks/cnn/cnn.md",
     "deep-learning/cnn/cnn.md",
-    "deep-learning/cnn/Untitled.md",
-    "deep-learning/deep-networks/02-backpropagation.md"
+    "deep-learning/cnn/Untitled.md"
   ]
 }
