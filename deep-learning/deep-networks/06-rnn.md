@@ -25,3 +25,39 @@ $b$ is the bias vector, $c$, $\mathbf{U}$, $\mathbf{V}$, and $\mathbf{W}$ are we
 $$L({x^{(1)}, \dots x^{(t)}, y^{(1)}, \dots y^{(t)}}) = \sum_t = L^{(t)} = -\sum_t \log p_{model}(y^{(t)} | {x^{(1)}, \dots x^{(t)}})$$
 
 Computation and memory cost for this RNN algorithm is $O(t)$ and cannot be parallelized. 
+
+## RNNs as directed graphs
+
+When we use a predictive log-likelihood training objective, we train the RNN to estimate the conditional distribution of the next sequence element $y^{(t)}$ given the past inputs. We maximize the log-likelihood: $\log P(y^{(t)} | x^{(1)}, \dots x^{(t)})$. If the model includes connections from the output at one time step to the next time step: $\log P(y^{(t)} | x^{(1)}, \dots x^{(t)}, y^{(1)}, \dots y^{(t)})$. 
+
+Decomposing the joint probability over the sequence of $y$ values as a series of one-step probability prediction is one way to capture the full join distribution across the whole sequence. When we do not feed $y$ values as input to the next sequence, there are no edges from any $y^{(i)}$ in the past to current $y^{(t)}$. The output of $y$ is conditionally independent given the sequence of $x$ values. When we do feed the actual $y$ values (observed or generated) back into the network, the directed graph model contains edges for all $y^{(i)}$ values in the past to current $y^{(t)}$ value. 
+
+Consider a simple example, where RNN models only a sequence of random variables $\mathbb{Y} = {y^{(i)}, \dots y^{(t)}}$ with no additional input $x$. At time step $t$, the input is simply the output at $t-1$. The joint probability: 
+
+$$P(\mathbb{Y}) = P(y^{(1)}, \dots y^{(\tau)}) = \prod_{t=1}^\tau P(y^{(t)}|y^{t-1}, \dots y^{(1)}) $$
+
+The negative log-likelihood:
+
+$$L^{(t)} = - \log P(y^{(t)} | y^{(t -1), \dots y^{(1)}})$$
+
+In Markov assumption, it is common to omit edges that do not correspond to strong interactions with edges from ${y^{(t-k)}, \dots y^{(t-1)}}$ to $y^{(t)}$ rather than all the edges in the entire history. 
+
+If $y$ can take $k$ different values, the tabular representation would have $O(k^\tau)$ parameters. Because of parameter sharing, the number of parameters in the RNN is $O(1)$ as a function of sequence length. Incorporating $h^{(t)}$ nodes in the graphical model decouples the past and the future actions as an intermediate quantity between them. Due to fewer parameters, the optimization may become difficult. 
+
+Parameter sharing assumes the variables at time $t$ is *stationary*, meaning the relationship between previous time steps and next time step does not depend on $t$. We used different conditional probability at each time step $t$. To sample the conditional distribution at each time step, we need a mechanism for determining the sequence length. One way is to add extra output to the model that predicts the integer $\tau$ itself. The model can sample a value of $\tau$ and then sample $\tau$ steps worth of data: 
+
+$$P(x^{(1)}, \dots x^{(\tau)}) = P(\tau)P(x^{(1)}, \dots x^{(\tau)} | \tau)$$
+
+### Modeling sequence conditioned on context with RNN
+
+RNNs allow extension of graphical model view to represent a conditional distribution of $y$ given $x$. Any model $P(y; \theta)$ can be represented as $P(y; w)$ where $w = f(x)$. Options to include the sequence of vector $x(t)$ for $t = 1, \dots \tau$ as input are: (a) extra input at each time step, (b) as initial state $h^{(0)}$, and (c) both.
+
+### Bidirectional RNNs
+
+In most cases, the state at time $t$ captures only information from the past $x^{(1)}, x^{(2)}, \dots x^{(t-1)}$ and present input $x^{(t)}$. However, some output prediction $y^{(t)}$ may depend on the whole input sequence (e.g., speech recognition, the current sound of a phoneme may depend on the next few phonemes. Bidirectional RNNs address this need, which combines the RNN that moves forward through time, beginning from the start of the sequence with another RNN that moves backward through time, beginning from the end of the sequence. 
+
+![Bidirectional RNN](bidirection-rnn.png)
+
+### Deep RNNs
+
+RNN involves computing three blocks of parameters and associated transformations: (a) input to hidden state, (b) previous hidden state to the next hidden state, and (c) hidden state to output. These are shallow transformations represented within a single layer. Experimental evidence suggests increasing the depth of the network improves its performance. An RNN can be made deep in many ways: (a) hidden state can be broken down into groups organized by hierarchy, (b) cheaper computations can be introduced in input-to-hidden, hidden-to-hidden, and hidden-to-output, (c) The path-lengthening eﬀect can be mitigated by introducing skip connections.
