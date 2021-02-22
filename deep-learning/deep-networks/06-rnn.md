@@ -61,3 +61,58 @@ In most cases, the state at time $t$ captures only information from the past $x^
 ### Deep RNNs
 
 RNN involves computing three blocks of parameters and associated transformations: (a) input to hidden state, (b) previous hidden state to the next hidden state, and (c) hidden state to output. These are shallow transformations represented within a single layer. Experimental evidence suggests increasing the depth of the network improves its performance. An RNN can be made deep in many ways: (a) hidden state can be broken down into groups organized by hierarchy, (b) cheaper computations can be introduced in input-to-hidden, hidden-to-hidden, and hidden-to-output, (c) The path-lengthening eﬀect can be mitigated by introducing skip connections.
+
+### Recursive Neural Net
+Recursive Neural Nets are structured like a deep tree rather than the chain-like structure of RNNs. In recursive nets for a sequence of the same length $\tau$, the depth can be drastically reduced from $\tau$ to $O(\log(\tau))$. What is the best tree structure? One option is to keep the tree independent of the data (binary balanced tree).
+
+![Recursive Neural Net](recursive-net.png)
+
+## Challenges of long-term dependencies
+The mathematical challenge of learning long-term dependencies is that the gradients propagated over many stages tend to either vanish (most of the time) or explode (rarely). The difficulty with long-term dependencies arises from the exponentially smaller weights given to long-term interactions (involving multiplications of many Jacobians) compared to short-term ones. RNNs involve the composition of the same function multiple times, one per time step. The function composition resembles matrix multiplication. $h^{(t)} = (W^{(t)})^T h^{(t-1)}$ with eigendecomposition of $W = Q \Lambda Q^T$ that yields $h^{(t)} = Q^T \Lambda^t Q h^{(0)}$. 
+The eigenvalues are raised to the power of $t$, causing eigenvalues with a magnitude less than one to decay to zero and eigenvalues with a magnitude greater than one to explode. Any component of $h^{(0)}$ that is not aligned with the largest eigenvector will eventually be discarded. This problem is particular to RNN. Imagine multiplying a weight $w$ by itself many times. The product $w^t$ will either vanish or explode depending on $w$. Whenever the model is able to represent long-term dependencies, the gradient of long-term interactions has an exponentially smaller magnitude than the gradient of short-term interactions. This means it takes a really long time to learn. The probability of successfully training an RNN is zero for a sequence of length 10 or 20.
+
+### Echo State Network
+The recurrent weight mapping from $h^{(t-1)}$ to $h^{(t)}$ and input weights mapping from $x^{(t)}$ to $h^{(t)}$ are some of the most difficult parameters to learn in a recurrent network. Echo state network avoids this difficulty by setting the recurrent weights such that the recurrent hidden units do a good job of capturing the history of past inputs and only learn the output weights. The idea is similar to kernel machines: they map an arbitrary length sequence (the history of inputs up to time $t$) into a fixed-length vector (the recurrent state $h^{(t)}$), on which a linear predictor (linear regression) can be applied to solve the problem of interest.
+
+## Leaky units and other strategies for multiple time scales
+One way to deal with long-term dependencies is to design a model that operates at multiple time scale so that some parts of the model operate at a fine-grained time scale and can handle small details while other parts act at a coarser time scales and transfer information from distant past to present more efficiently. Strategies include the addition of skip connection across time, "leaky units" that integrate signals with different time constants, and the removal of some of the connections used to model fine-grained time scales. 
+
+### Skip connection through time
+One way to obtain coarse time scales is to add direction connections from variables in the distant past to variables in the present. In an ordinary recurrent network, a recurrent connection goes from $t$ to a unit at time $t+1$; it is possible to construct a recurrent network with larger delays.
+
+### Leaky units and a spectrum of different time scales
+Another way the product of derivatives is close to one is to have units with self-connections and weight near one on these connections. When we accumulate a running average $\mu^{(t)}$ for some values $v^{(t)}$ as $\mu^{(t)} = \alpha \mu^{(t-1)} + (1-\alpha)v^{(t)}$. The $\alpha$ parameter is an example of linear self connection from $\mu^{(t-1)}$ to $\mu^{(t)}$. When $\alpha$ is nearly one, the running average remembers the information about the past for a long time; when $\alpha$ is close to zero, information about the past rapidly decays. Skip connections through $d$ time steps are a way of ensuring that a unit can always learn to inﬂuenced by a value from $d$ time steps earlier. The use of a 
+linear self-connection with a weight near one is a diﬀerent way of ensuring that the
+unit can access values from the past.
+
+### Removing connections
+Removing connections handle long-term dependencies by organizing the state of RNN at multiple time scale with information flowing more easily through long distances at slower time scales. The idea differs from skip connections by removing length-one connections and replacing them with longer connections. Units modified this way are forced to operate on longer time scales. Skip connections through time _add edges_. However, such units may learn to operate on a longer time scale but may also choose to focus on their short-term connections. 
+
+## Gated RNNs
+The most efficient sequence models are *Gated RNNs*. They are based on the idea of creating paths through time that have derivatives that neither vanish nor explode. Leaky units did this by connection weights that are manually chosen or were parameters. Gated RNN generalizes this to connection weights that may change at each time step.
+
+Leaky units allow the network to accumulate information over a long duration. Once the information is used it maybe useful for the neural network to forget the old state. Instead of manually cleaning the state, we want the network to learn to decide when to do it. This is what gated RNNs do. 
+
+### Long short-term model (LSTM)
+LSTM is a clever idea of introducing self-loops to produce paths where the gradients can flow for long durations. A crucial addition has been made to make the weight on this self-loop conditioned on the context rather than fixed. By making the weight of self-loop gated(controlled by another hidden unit), the time scales can change dynamically based on the input sequence. 
+
+![LSTM](lstm.png)
+
+LSTM cells have an internal recurrence (a self loop). Each cell has the same inputs and outputs as an ordinary recurrent network, but also has more parameters and a system of gating units that control the flow of information. The state unit $s_i^{(t)}$ has a linear self loop similar to the leaky units described earlier. Hence, the self loop is controlled by a forget gate unit $f_i^{(t)}$ for time step $t$ and cell $i$, which sets the weight between zero and one via a sigmoid unit:
+
+$$f_i^{(t)} = \sigma(b_i^f + \sum_j U_{i,j}^f x_j^{(t)} + \sum_j W_{i, j}^f h_j^{t-1})$$
+
+$x_j^{(t)}$ is the current input vector, $h^{(t)}$ is the current hidden layer vector, $b^f$, $\mathbf{U}^f$, $\mathbf{W}^f$ are biases, input weights and recurrent weights for forget gates. The LSTM cell internal state is updated with a conditional self-loop weight:
+
+$$s_i^{(t)} = f_i^{(t)}s_i^{(t-1)} + g_i^{(t)} \sigma(b_i + \sum_j U_{i,j} x_j^{(t)} + \sum_j W_{i, j} h_j^{t-1})$$
+
+The external input gate unit $g_i^{(t)}$ is computed similarly to forget gate using a sigmoid function that scales between 0 and 1. 
+
+$$g_i^{(t)} = \sigma(b_i^g + \sum_j U_{i,j}^g x_j^{(t)} + \sum_j W_{i, j}^g h_j^{t-1})$$
+
+The output $h_i^{(t)}$ of LSTM cell can be shut-off via the output gate $q_i^{(t)}$ which also uses a sigmoid unit for gating:
+
+$$h_i^{(t)} = \tanh (s_i^{(t)}) q_i^{(t)}$$
+$$q_i^{(t)} = \sigma(b_i^o + \sum_j U_{i,j}^o x_j^{(t)} + \sum_j W_{i, j}^o h_j^{t-1})$$
+
+LSTM has been shown to learn long-term dependencies easily.
