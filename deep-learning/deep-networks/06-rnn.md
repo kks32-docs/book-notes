@@ -116,3 +116,31 @@ $$h_i^{(t)} = \tanh (s_i^{(t)}) q_i^{(t)}$$
 $$q_i^{(t)} = \sigma(b_i^o + \sum_j U_{i,j}^o x_j^{(t)} + \sum_j W_{i, j}^o h_j^{t-1})$$
 
 LSTM has been shown to learn long-term dependencies easily.
+
+### Gated RNNs
+Units of gated RNNs are called gated recurrent units or GRUs. In Gated RNN, a single gating unit simultaneously controls the forgetting factor and decision to update the state unit. 
+
+$$h_i^{(t)} = u_i^{(t-1)}h_i^{(t-1)} + (1-u_i^{(t-1)})\sigma(b_i + \sum_j U_{i,j} x_j^{(t-1)} + \sum_j W_{i, j} r_j^{(t-1)} h_j^{t-1})$$
+
+$u$ is the update $r$ is the reset gate:
+
+$$u_i^{(t)} = \sigma(b_i^u + \sum_j U_{i,j}^u x_j^{(t)} + \sum_j W_{i, j}^u h_j^{t})$$
+$$r_i^{(t)} = \sigma(b_r^u + \sum_j U_{i,j}^r x_j^{(t)} + \sum_j W_{i, j}^r h_j^{t})$$
+
+The reset and update gates can individually "ignore" parts of the state vector. The update gate acts like a conditionally leaky integrator that can gate any dimension, choosing to copy it or ignore it. The reset gate controls which parts of the state are used to compute the next target state. This introduces an additional nonlinear effect in the relationship between the past state and future state.
+
+## Optimizing long-term dependencies
+### Clipping gradients
+The objective function (as a function of parameters) has a landscape in which one finds "cliffs": wide and rather flat regions separated by tiny regions where the objective function crosses quickly, forming a kind of cliff. The gradient descend in these regions could throw the parameter very far, where the objective function is large. 
+
+![Clipping gradients](clipping-gradients.png)
+
+One option is to clip the gradient from a minibatch element-wise, just before the parameter update. Another is to clip the norm $||g||$ of the gradients $g$ just before parameter update, if $||g|| > v$, then $g \leftarrow \frac{g v}{||g||}$, where $v$ is the norm threshold and $g$ is used to update parameters. Renormalization gurantees that each step is still in the gradient direction and avoids exploding gradient. 
+
+### Regularization encouraging information flow
+Gradient clipping avoids exploding gradients but does not solve vanishing gradients. Creating paths in the computational graph of unfolded recurrent architecture along which the product of gradient associated with area is near one minimizes the vanishing gradient effect. Another approach is to regularize or constrain the parameters to encourage information flow. We like the gradient vector $\nabla_{h^{(t)}} L$ being backpropagated to maintain its magnitude, even if the loss function only penalizes the output at the end of the sequence. 
+
+## Explicit memory
+Neural networks excel at storing implicit knowledge but struggle to memorize facts. Stochastic Gradient Descent requires many presentations of the same input before it can be stored in the neural network as parameters; even then, the input will not be stored especially precisely. Neural networks lack the equivalent of a "working memory" system to explicitly hold and manipulate information pieces. Memory networks include a set of memory cells that can be accessed via an addressing mechanism. Each memory cell can be thought of as an extension of memory cells in LSTM or GRUs. The difference is that the network outputs an internal state that chooses which cell to read from and write to, just as memory address in digital computers work. In a memory network, read (as a weighted average) and write to multiple cells are used instead of a single integer memory location. This vector-based memory enables content-based addressing than an integer memory location (location-based addressing). 
+
+![Memory cells](memory-cells.png)
