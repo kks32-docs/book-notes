@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "deep-learning/deep-networks/06-rnn.md",
+            "file": "deep-learning/deep-networks/07-practical-methodologies.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "deep-learning/deep-networks/06-rnn.md",
+                "file": "deep-learning/deep-networks/07-practical-methodologies.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "deep-learning/deep-networks/06-rnn.md"
+                "file": "deep-learning/deep-networks/07-practical-methodologies.md"
               }
             }
           }
@@ -96,15 +96,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "deep-learning/deep-networks/06-rnn.md",
+    "deep-learning/deep-networks/07-practical-methodologies.md",
+    "deep-learning/deep-networks/05-optimization.md",
     "_sidebar.md",
     "README.md",
     "deep-learning/deep-networks/Untitled.md",
-    "deep-learning/deep-networks/05-optimization.md",
+    "deep-learning/deep-networks/06-rnn.md",
     "deep-learning/deep-networks/04-regularization.md",
     "deep-learning/deep-networks/03-cnn.md",
     "deep-learning/deep-networks/cnn/cnn.md",
-    "deep-learning/cnn/cnn.md",
-    "deep-learning/cnn/Untitled.md"
+    "deep-learning/cnn/cnn.md"
   ]
 }

@@ -23,7 +23,8 @@
     * [Gradient based learning](deep-learning/deep-networks/01-gradient-based-learning.md)
     * [Backpropagation](deep-learning/deep-networks/02-backpropagation.md)
     * [Convolution Neural Network](deep-learning/deep-networks/03-cnn.md)
-    * [Regularization](deep-learning/deep-networks/04-regularization.md)
+    * [Recurrent Neural Network](deep-learning/deep-networks/04-rnn.md)
     * [Optimization](deep-learning/deep-networks/05-optimization.md)
-    * [Recurrent Neural Network](deep-learning/deep-networks/06-rnn.md)
+    * [Regularization](deep-learning/deep-networks/06-regularization.md)
+    * [Practical methodologies](deep-learning/deep-networks/07-practical/methodologies.md)
   
