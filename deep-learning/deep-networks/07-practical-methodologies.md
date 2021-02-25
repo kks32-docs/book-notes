@@ -35,3 +35,25 @@ Not every hyperparameter will be able to explore the entire U-shape. The number 
 The effective capacity of the model is highest when the learning rate is *correct*. The learning rate is too large the gradient descent inadvertently increases rather than decreases the training error. When the learning rate is too small, training is not only slow but may become permanently stuck with a high training error. If the error rate in training is larger than the target error rate, one must increase the capacity. If you think the optimization algorithm performs correctly, you must increase the number of layers the number of hidden units, but this incurs higher computation cost. 
 
 ![Hyperparameters and their effect on capacity](hyperparameters-capacity.png)
+
+## Grid search
+When there are three or fewer hyperparameters, a common practice is to do a grid search, which trains a model for every joint specification of hyperparameter values in the cartesian product of a set of values for each hyperparameter. The experiment that yields the best validation set error is then chosen as having found the best hyperparameter. Grid search involves picking values in the logarithmic scale (learning rate ${0.1, 0.01, \dots 1E-5}$, and the number of hidden units: ${50, 100, 200, 500, 1000, 2000}$). Grid search performs best when done iteratively. The computation cost of grid search is $O^m$ for $m$ hyperparameters.
+
+## Random search
+We define a marginal distribution for each hyperparameter: $\log learning-rate \sim u(-1, -5) \quad learning-rate = 10^{\log learning-rate}$. Unlike grid search, we should not discretize or bin values of hyperparameter. A random search can be exponentially more efficient than a grid search. 
+
+![Grid vs. Random search](grid-random-search.png)
+
+## Debugging strategies
+
+In most cases, we do not know a priori the intended behavior of the algorithm. 
+
+- *Visualize model in action*: Visually compare the results such as an object detection boundary against the image of the object, instead of merely relying on quantitative metrics like log-likelihood or accuracy. 
+- *Visualize the worst mistake*: Most models output some sort of confidence measure for the task they perform. Viewing the training set examples that are the hardest to model correctly can often detect problems with the way data has been processed or labeled. E.g., sorting images by the most confident mistakes could likely identify systematic problems.
+- *Reason about software using training and test error*: If the training error is low, test errors high, then the training procedure works correctly, but the model is overfitting for fundamental algorithmic reasons. An alternative is that the test error is measured incorrectly.
+- *Fit a tiny dataset*: Usually, even small models can be guaranteed to fit a sufficiently small dataset. 
+- *Compare back-propagated derivatives to numerical derivatives*: Compare automatic differentiation implementation with a finite difference or central difference. 
+- *Monitor histogram of activations and gradients*: Useful to visualize statistics of neural network activation and gradients, collected over a large amount of training iteration (maybe an epoch). It tells us how often a unit is activated (e.g., how often rectifiers are off, are there hidden units that are always off, for $\tanh$ the average of absolute values of preactivation tells us how saturated the unit is).
+- *Compare the magnitude of the gradient to the magnitude of the parameter itself*. This value should typically be 1% of the parameter value, not 50 or 0.001%. 
+
+If the training and test errors are similar, the problem may be either underfitting or with the data.
