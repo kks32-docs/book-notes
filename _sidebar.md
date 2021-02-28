@@ -27,5 +27,5 @@
     * [Optimization](deep-learning/deep-networks/05-optimization.md)
     * [Regularization](deep-learning/deep-networks/06-regularization.md)
     * [Practical methodologies](deep-learning/deep-networks/07-practical-methodologies.md)
-    * [Structured probability models](08-structured-probabilistic-models.md)
+    * [Structured probability models](deep-learning/deep-networks/08-structured-probabilistic-models.md)
   
