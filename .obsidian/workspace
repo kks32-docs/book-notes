@@ -96,6 +96,7 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "deep-learning/deep-networks/08-structured-probabilistic-models.md",
     "deep-learning/deep-networks/08-structured-probability-models.md",
     "_sidebar.md",
     "deep-learning/deep-networks/Untitled.md",
@@ -104,7 +105,6 @@
     "deep-learning/deep-networks/07-practical-methodologies.md",
     "deep-learning/deep-networks/05-optimization.md",
     "README.md",
-    "deep-learning/deep-networks/06-rnn.md",
-    "deep-learning/deep-networks/04-regularization.md"
+    "deep-learning/deep-networks/06-rnn.md"
   ]
 }
