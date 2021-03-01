@@ -29,3 +29,5 @@
     * [Practical methodologies](deep-learning/deep-networks/07-practical-methodologies.md)
     * [Structured probability models](deep-learning/deep-networks/08-structured-probabilistic-models.md)
   
+ * Lattice Boltzmann Method
+    * [Introduction](lbm/00-background.md)

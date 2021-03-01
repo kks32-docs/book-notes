@@ -7,3 +7,5 @@
 [Critical state soil mechanics](https://kks32.github.io/learning/critical-state-soil-mechanics/introduction.md)
 
 [Deep Learning](https://kks32.github.io/learning/#/deep-learning/00-introduction.md)
+
+[Lattice Boltzmann Method](https://kks32.github.io/learning/#/lbm/00-background.md)
