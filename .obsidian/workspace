@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
+            "file": "lbm/00-background.md",
             "mode": "source"
           }
         }
@@ -53,7 +53,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "7fea3d38c8f91c94",
@@ -69,7 +70,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "lbm/00-background.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "lbm/00-background.md"
               }
             }
           }
@@ -96,8 +97,8 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "_sidebar.md",
     "lbm/00-background.md",
+    "_sidebar.md",
     "README.md",
     "lbm/Untitled.md",
     "deep-learning/deep-networks/08-structured-probabilistic-models.md",
