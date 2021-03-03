@@ -115,3 +115,86 @@ $$ \rho e = \frac{3}{2} \rho RT = \frac{3}{2}p$$
 Consequently, both the pressure and temperature can be found proportional through the same moment as internal energy:
 
 $$ p = \rho R T = \frac{2}{3} \rho e = \frac{1}{3}\int |v|^2 f(x, \xi, t) d^3 \xi$$
+
+### Equilibrium distribution function
+The outgoing direction of two elastically colliding hard spheres is very sensitivie to their initial relative positions. Collision tend to even out the angular distribution  of particle velocities in a gas around the mean velocity $u$. Consequently, wehn a gas is left alone for sufficiently long, we may assume the distribution function $f(\xi, t)$ may reach an equilibrium distribution $f^{eq}(x, \xi, t)$, which is isotropic in velocity space around $\xi = u$, in a reference frame moving with velocity $u$. The equilibrium distribution function can be expressed as $f^{eq}(x, |v|, t)$. If we assume the solution is in a separable form: $|v|^2 = v_x^2 + v_y^2 + v_z^2 = const$. Given, $f^{1D}(v_x^2) = a + b v_x^2$:  
+
+$$f^{eq}(|v|^2) = f^{1D}(v_x^2)f^{1D}(v_y^2)f^{1D}(v_z^2) = \exp^{3a + b (v_x^2+v_y^2+v_z^2)} = \exp^{3a} \cdot \exp^{b|v|^2}$$
+
+Since monatomic collision conserves mass, momentum, and energy, constants $a$ and $b$ can be found explicitly by demanding that $f^{eq}$ has the same moments of density and energy as $f$. 
+
+## Boltzmann equation and collision operator
+Since $f(x, \xi, t)$ is a function of position $x$, particle velocity $\xi$ and time $t$:
+
+$$\frac{df}{dt} = \left(\frac{\partial f}{\partial t}\right)\cdot\frac{dt}{dt} + \left(\frac{\partial f}{\partial x_\beta}\right)\cdot\frac{dx_\beta}{dt} + \left(\frac{\partial f}{\partial \xi_\beta}\right)\cdot\frac{d\xi_\beta}{dt}$$
+
+From Newton's law, $\frac{d \xi_\beta}{dt} = acc = F_\beta/\rho$, the rate of change of position is velocity $\frac{d\xi_\beta}{dt} = \xi_\beta$  and using $\Omega(f) = \frac{df}{dt}$ for the total differential we get the **Boltzmann equation**:
+
+$$\left(\frac{\partial f}{\partial t}\right) + \xi_\beta\left(\frac{\partial f}{\partial x_\beta}\right) + \frac{F_\beta}{\rho}\left(\frac{\partial f}{\partial \xi_\beta}\right)=\Omega(f)$$
+
+$\Omega(f)$ is the collision operator. This is like an advection equation. The first two terms represent the distribution function being advected with velocity $\xi$ of its particles. The third term represents the forces affecting this velocity. The right-hand side is the source term representing the local distribution of $f$ due to collision. 
+
+Collision conserves mass, momentum and translational energy in monatomic conditions:
+
+Mass conservation: $\int \Omega(f)d^3\xi = 0$
+
+Momentum conservation: $\int \xi \Omega(f)d^3\xi = 0$
+
+Total energy conservation: $\int |\xi|^2 \Omega(f)d^3\xi = 0$
+
+Internal energy conservation: $\int |v|^2 \Omega(f)d^3\xi = 0$
+
+The Bhatnagar, Gross ad Krook (BGK) collision operator directly captures the relaxation of distribution function towards one equilibrium distribution: 
+
+$$\Omega(f) = -\frac{1}{\tau}(f - f^{eq})$$
+
+The time constant $\tau$, which determines the speed of equilibrium, is the relaxation time. Values of $\tau$ determine the transport coefficient, such as viscosity and heat diffusivity. The simplified BGK predicts a Prandtl number, as the ratio of viscosity to the thermal conductivity of 1. Whereas the Boltzmann operator, which considers all possible values of two-particle collision for any choice of intermolecular forces using a double integration over the velocity space, predicts a Pr = 2/3, which is much closer to lab observations.
+
+## Macroscopic conservation
+
+Macroscopic conservation equation of fluid mechanics can be obtained directly from Boltzmann equation by taking the moments of the equation:
+
+$$\Pi_0 = \int f d^3 \xi = \rho$$
+$$\Pi_1 = \int \xi_\alpha f d^3 \xi = \rho u_\alpha$$
+$$\Pi_{\alpha\beta} = \int \xi_\alpha\xi_\beta f d^3 \xi$$
+$$\Pi_{\alpha\beta\gamma} = \int \xi_\alpha\xi_\beta\xi_\gamma f d^3 \xi$$
+
+Moments of force terms:
+$$\int \frac{df}{d\xi_beta}d^3\xi =0$$
+$$\int \xi_\alpha \frac{df}{d\xi_beta}d^3\xi = -\rho \delta_{\alpha\beta}$$
+$$\int \xi_\alpha \xi_\beta \frac{df}{d\xi_beta}d^3\xi = -2 \rho u_\beta$$
+
+### Mass conservation
+Continuity equation, which describes the conservation of mass, is obtained by integrating the Boltzmann equation:
+
+$$\frac{\partial}{\partial t} \int f d^3\xi + \frac{\partial}{\partial x_\beta} \int \xi_\beta f d^3\xi + \frac{F_\beta}{\rho}\int\frac{\partial f}{\partial \xi_\beta} d^3\xi = \int \Omega (f) d^3 \xi$$
+
+Considering the collision operator conserves mass and the above macroscopic conservation quantities, we get:
+
+$$\frac{\partial \rho}{\partial t} + \frac{\partial (\rho u_\beta)}{\partial x_\beta} = 0$$
+
+The equation only depends on $\rho$ and $\rho u_\beta$ and not $f$. 
+
+### Momentum conservation
+If we take the first moment of Boltzmann equation:
+$$\frac{\partial \rho u_\alpha}{\partial t} + \frac{\partial (\Pi_{\alpha\beta}}{\partial x_\beta} = F_\alpha$$
+
+$\Pi_{\alpha\beta}$ is the *momentum flux tensor*.
+
+### Energy conservation
+Energy conservation can be obtained from the trace of second moments. In other words, we multiply by $\xi_\alpha\xi_\alpha$ before integrating over velocity space: 
+
+$$\frac{\partial \rho E}{\partial t} + \frac{1}{2}\frac{\partial (\Pi_{\alpha\alpha\beta}}{\partial x_\beta} = F_\alpha u_\beta$$
+
+## Boltzmann $\mathcal{H}$-Theorem
+The thermodynamic property of entropy can be related to the distribution function $f$. The entropy density is denoted by $\rho s$ with units of $J/kg m^3$. 
+
+$$\mathcal{H} = \int f \ln f d^3 \xi$$
+
+$\mathcal{H}$ can only ever decrease and reaches its minimum value when the distribution function $f$ reaches equilibrium. The flux of quantity $\mathcal{H}$ is $\mathcal{H}_\alpha = \int \xi_\alpha f \ln f d^3 \xi$, which can be split into advection and diffusion components. From the Boltzmann equation:
+
+$$\frac{\partial \mathcal{H}}{\partial t} + \frac{\partial \mathcal{H}_\alpha}{\partial x_\alpha} = 0$$
+
+$\mathcal{H}$ is not conserved in the system: it never increases but instead, it decreases until the particle distribution reaches equilibrium. This is the **Boltzmann $\mathcal{H}$-theorem**. Molecular collisions invariable drive the distribution function towards equilibrium.
+
+$\mathcal{H}$ is proportional to entropy distribution $\rho s$ as $\rho s = -R \mathcal{H}$. This is analogous to how entropy always increases in the system unless the system has reached an equilibrium characterized by an entropy maximum.
