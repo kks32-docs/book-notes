@@ -31,3 +31,4 @@
   
  * Lattice Boltzmann Method
     * [Introduction](lbm/00-background.md)
+    * [Numerical methods](lbm/01-numerical-methods.md)

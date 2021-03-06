@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "lbm/00-background.md",
+            "file": "lbm/01-numerical-methods.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "lbm/00-background.md",
+                "file": "lbm/01-numerical-methods.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "lbm/00-background.md"
+                "file": "lbm/01-numerical-methods.md"
               }
             }
           }
@@ -96,15 +96,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "lbm/00-background.md",
+    "lbm/01-numerical-methods.md",
     "_sidebar.md",
-    "README.md",
+    "lbm/scales.png",
+    "lbm/00-background.md",
     "lbm/Untitled.md",
+    "README.md",
     "deep-learning/deep-networks/08-structured-probabilistic-models.md",
     "deep-learning/deep-networks/08-structured-probability-models.md",
     "deep-learning/deep-networks/Untitled.md",
-    "deep-learning/deep-networks/00-feedforward-networks.md",
-    "deep-learning/basics/00-introduction.md",
-    "deep-learning/deep-networks/07-practical-methodologies.md"
+    "deep-learning/deep-networks/00-feedforward-networks.md"
   ]
 }
