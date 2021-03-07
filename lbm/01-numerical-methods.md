@@ -36,3 +36,39 @@ Particle-based methods do not directly discretize the equations of fluid mechani
 
 ### Molecular Dynamics
 Molecular Dynamics (MD) solves the interaction between molecules using the intermolecular forces and tracks particles' position by calculating the acceleration as per Newton's law. However, this method is intractable to solve continuum-scale problems; even a single gram of water has $10^22$ molecules.
+
+### Lattice Gas Models
+Fictitious particles exist on a grid, where they stream forwards and collide in a manner that respects the conservation of mass and momentum. Each node has a finite set of neighbors, and each particle has only a finite set of possible velocities $e_i$ that would bring a particle to a neighboring node in a single time step. Only up to one particle of a certain velocity can be present in a node at any time. Whether or not a particle of velocity $e_i$ exists at a lattice node at location $x$ at time $t$ is expressed by occupation number $n_i(x, t)$, where index $i$ refers to velocity $e_i$. The occupation number is a boolean variable that relates to macroscopic observables: mass density and momentum:
+
+$$\rho(x, t) = \frac{m}{v_0}\sum_i n_i(x, t) \quad \rho u(x, t) = \frac{m}{v_0}\sum_i c_i n_i(x, t)$$
+
+$m$ mass of a particle and $v_0$ is the volume covered by the node. 
+
+The time evolution of lattice gas is determined by two rules: *collision* and *streaming*. *Collision* is where particles that met in a node may be redistributed in a way that conserves the mass and momentum in the node. 
+
+$$n_i^*(x, t) = n_i(x, t) + \Omega_i (x, t)$$
+
+$n_i^*$ is post collision occumputation number and $\Omega_i \in \{-1, 0, 1\}$ is the collision operator that may redistribute particles in a node based on all occupation numbers $\{n_i\}$ in that node. Collision must conserve mass $(\sum_i \Omega_i(x, t) = 0)$ and momentum $(\sum_i c_i\Omega_i(x, t) = 0)$
+
+![collision](lattice-gas-collision.png)
+
+*Streaming*: after collisions, particles move from their current nodes to a neighboring node in their direction of velocity. The particle velocities $e_i$ are such that particles move exactly from one node to another within a time step. For a triangular grid, six velocities of magnitude $|c_i| = \Delta x / \Delta t$ exists, where $\Delta x$ is the distance between the nodes and $\Delta t$ is the time step. 
+
+$$n_i(x, c_i \Delta t) = n_i^*(x, t)$$
+
+Combining both streaming and collision:
+
+$$n_i(x, c_i \Delta t, t + \Delta t) =n_i(x, t) + \Omega_i (x, t)$$
+
+*Advantages*:
+- Collision operator is boolean, so the collisions are perfect and not prone to floating-point errors
+- Massively parallelizable.
+
+*Disadvantages*:
+- Computationally expensive. 3D gas with 24 velocities has $2^24 = 1.68E7$ possible states in each node. 
+- Problems with isotropy can only disappear at low Mach numbers (quasi-incompressible flows).
+- Cannot reach high Reynolds number
+- Staticial noise can form even in gas at an equilibrium state.
+
+### Lattice Boltzmann Method (LBM)
+LBM tracks the distribution of particles instead of concrete particles. It is based on the Boltzmann equation. The standard LBM is second-order accurate for weakly compressible Navier-Stokes equation. Weakly compressible refers to errors occurring when the Mach number approaches one. Conventional CFD, the advection term $u \cdot \nabla u$ is nonlinear. In LBM, "* nonlinearity is local, and non-locality is linear*." Interactions between nodes are entirely linear, while the method's nonlinearity enters in the local collision process within each node.
