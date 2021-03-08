@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "04676616e57b5357",
+        "id": "05dee5ca50e55c67",
         "type": "leaf",
         "active": true,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "lbm/01-numerical-methods.md",
+            "file": "lbm/01-lbm/00-lbm.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "lbm/01-numerical-methods.md",
+                "file": "lbm/01-lbm/00-lbm.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "lbm/01-numerical-methods.md"
+                "file": "lbm/01-lbm/00-lbm.md"
               }
             }
           }
@@ -96,15 +96,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "lbm/01-lbm/00-lbm.md",
+    "lbm/01-lbm/lbm-collision-streaming.png",
+    "lbm/01-lbm/Untitled.md",
     "lbm/01-numerical-methods.md",
     "_sidebar.md",
     "lbm/scales.png",
     "lbm/00-background.md",
     "lbm/Untitled.md",
     "README.md",
-    "deep-learning/deep-networks/08-structured-probabilistic-models.md",
-    "deep-learning/deep-networks/08-structured-probability-models.md",
-    "deep-learning/deep-networks/Untitled.md",
-    "deep-learning/deep-networks/00-feedforward-networks.md"
+    "deep-learning/deep-networks/08-structured-probabilistic-models.md"
   ]
 }
