@@ -40,3 +40,72 @@ $$f_i(x + c_i \Delta t, t + \Delta t)= f_i^*(x, t)$$
 3. Perform *collision* (relaxation): $f_i^*(x, t) = f_i(x, t) (1-\frac{\Delta t}{\tau}) + f_i^{eq} (x, t) \frac{\Delta t}{\tau}$
 4. Perform *streaming*: $f_i(x + c_i \Delta t, t + \Delta t)= f_i^*(x, t)$
 5. Increase time step $t$ to $t + \Delta t$ and repeat from step 1. 
+
+## Discretization in velocity space
+Discretization in velocity space allows us to reduce the continuous 3D velocity space to a small number of discrete velocities without compromising the validity of macroscopic equations. 
+
+In contrast to the unknown distribution function $f$ the equilibrium distribution function $f^{eq}$ is known function of exponential form. $f^{eq}$ can be represented through the exponential weight function. The mass and momentum can be represented as integral of $f^{eq}$ multiplied by Hermite polynomial. 
+
+The Boltzmann equation is:  [#boltzmann-equation]
+$$\left(\frac{\partial f}{\partial t}\right) + \xi_\alpha\left(\frac{\partial f}{\partial x_\alpha}\right) + \frac{F_\alpha}{\rho}\left(\frac{\partial f}{\partial \xi_\alpha}\right)=\Omega(f)$$
+
+The Boltzmann equation describes the  evolution of the distribution function $f(x, \xi, t)$, i.e., density of particle with velocity $\xi$ at position $x$ and time $t$. In a force-free homogeneous steady state, the left-hand side disappears, and the solution of the Boltzmann equation is $f^{eq}$. $f^{eq}$ is written in terms of macroscopic quantities: density $\rho$, fluid velocity $u$, and temperature $T$. 
+
+$$f^{eq}(\rho, u, T, \xi) = \frac{\rho}{(2\pi R T)^{d/2}} e^{-(\xi -u)^2/2RT}$$
+
+where, $d$ is the number of spatial dimensions, gas constant $R = k_\beta / m$, $k_\beta$ is the Boltzmann constant and $m$ is the particle mass. 
+
+Physical pheomena occurs at certain characteristic scales. Such as length $l$, velocity $V$, and density $\rho_0$. A characteristic time scale is $t_0 = l/V$. Using $*$ to denote non-dimensional quantities. 
+
+$$\frac{\partial}{\partial t^*} = \frac{l}{v}\frac{\partial}{\partial t};  \quad \frac{\partial}{\partial x^*} = l\frac{\partial}{\partial x}; \quad \frac{\partial}{\partial \xi^*} = v\frac{\partial}{\partial \xi};$$
+
+Non-dimensional Boltzmann equation:
+$$\left(\frac{\partial f^*}{\partial t^*}\right) + \xi_\alpha^*\left(\frac{\partial f^*}{\partial x_\alpha^*}\right) + \frac{F_\alpha^*}{\rho^*}\left(\frac{\partial f^*}{\partial \xi_\alpha^*}\right)=\Omega^*(f^*)$$
+
+$$f^* = f V d/\rho_0, \quad \quad F^* = F l / (\rho V^2)  \quad \quad \rho^* = \rho/\rho_0, \quad \quad \Omega^* = \Omega l V^2/\rho_0  \quad \quad \theta^* = RT/V^2$$
+
+We will omit $^*$ to refer to Boltzmann equation in non-dimensional form. Force-free continuous Boltzmann equation is:
+$$\left(\frac{\partial f}{\partial t}\right) + \xi_\alpha\left(\frac{\partial f}{\partial x_\alpha}\right) + =\Omega(f)$$
+
+Conservation implies momentum of equilibrium distribution function $f^{eq}$ and particle distribution function $f$ coincide:
+
+$$\int f(x, \xi, t)d^3\xi = \int f^{eq} (\rho, u, \theta, \xi) = \rho(x, t)$$
+$$\int f(x, \xi, t) \xi d^3\xi = \int f^{eq} (\rho, u, \theta, \xi) \xi = \rho u(x, t)$$
+$$\int f(x, \xi, t) \frac{|\xi|^2}{2}d^3\xi = \int f^{eq} (\rho, u, \theta, \xi)\frac{|\xi|^2}{2} = \rho E(x, t)$$
+$$\int f(x, \xi, t)\frac{|\xi - u|^2}{2}d^3\xi = \int f^{eq} (\rho, u, \theta, \xi) \frac{|\xi-u|^2}{2}= \rho e(x, t)$$
+
+The dependence on space and time in $f^{eq}$ enters only through $\rho(x, t)$, $u(x, t)$ and $\theta(x, t)$. 
+
+**The idea of the Hermite series is to take the continuous integral to discrete sums evaluated at a particular velocity space (for specific values of $\xi$).**
+
+## Hermite Polynomials (HP)
+1D HP can be obtained from the *weight function* (also called the *generating function*):
+
+$$\omega(x) = \frac{1}{\sqrt{2\pi}}e^{-x^2/2}$$
+
+The weighting function allows us to construct 1D HP of n-th order ($n \ge 0$):
+
+$$H^n(x) = (-1)^n \frac{1}{\omega(x)}\frac{d^n}{dx^n}\omega(x)$$
+
+For different values of $n$:
+$$H^{(0)}(x) = 1 \quad H^{(1)}(x) = x  \quad H^{(2)}(x) = x^2 -1  \quad H^{(3)}(x) = x^3 - 3x$$
+
+For d-spatial dimensions:
+$$H^n(x) = (-1)^n \frac{1}{\omega(x)}\nabla^{(n)}\omega(x) \quad \omega(x) = \frac{1}{(2\pi)^{d/2}}e^{-x^2/2}$$
+
+$H^n$ and $\nabla^n$ has $d^n$ components: $\nabla^{(n)}_{\alpha_1, \dots \alpha_n} = \frac{\partial}{\partial x_{\alpha_1}}\dots\frac{\partial}{\partial x_{\alpha_n}}$
+
+Derivatives are commutative: $\nabla_{xxy}^3 = \nabla_{xyx}^3 = \nabla_{yxx}^3$. We deal with $d = 2$ or $3$. $a_1, \dots a_n \in \{x, y\}$ or $\{x, y, z\}$. 
+
+For $d=2$. HP up to second order ($n = 0, 1, 2$):
+$$\nabla_{xx}^2 = \frac{\partial}{\partial x}\frac{\partial}{\partial x} \quad \nabla_{xy}^2 = \frac{\partial}{\partial x}\frac{\partial}{\partial y} \quad \nabla_{yx}^2 = \frac{\partial}{\partial y}\frac{\partial}{\partial x} \quad \nabla_{yy}^2 = \frac{\partial}{\partial y}\frac{\partial}{\partial y}$$
+
+For $n = 0$:
+$$H^{(0)} = 1$$
+For $n = 1$:
+$$H^{(1)}_x = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_x e^{-(x^2 + y^2)/2} = x$$
+$$H^{(1)}_y = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_y e^{-(x^2 + y^2)/2} = x$$
+For $n = 2$:
+$$H^{(2)}_{xx} = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_x \partial_x e^{-(x^2 + y^2)/2} = x^2 -1$$
+$$H^{(2)}_{xy} = H^{(2)}_{yx} = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_x \partial_y e^{-(x^2 + y^2)/2} = xy$$
+$$H^{(2)}_{yy} = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_y \partial_y e^{-(x^2 + y^2)/2} = y^2 -1$$

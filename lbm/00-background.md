@@ -129,7 +129,7 @@ Since $f(x, \xi, t)$ is a function of position $x$, particle velocity $\xi$ and 
 $$\frac{df}{dt} = \left(\frac{\partial f}{\partial t}\right)\cdot\frac{dt}{dt} + \left(\frac{\partial f}{\partial x_\beta}\right)\cdot\frac{dx_\beta}{dt} + \left(\frac{\partial f}{\partial \xi_\beta}\right)\cdot\frac{d\xi_\beta}{dt}$$
 
 From Newton's law, $\frac{d \xi_\beta}{dt} = acc = F_\beta/\rho$, the rate of change of position is velocity $\frac{d\xi_\beta}{dt} = \xi_\beta$  and using $\Omega(f) = \frac{df}{dt}$ for the total differential we get the **Boltzmann equation**:
-
+[#boltzmann-equation]
 $$\left(\frac{\partial f}{\partial t}\right) + \xi_\beta\left(\frac{\partial f}{\partial x_\beta}\right) + \frac{F_\beta}{\rho}\left(\frac{\partial f}{\partial \xi_\beta}\right)=\Omega(f)$$
 
 $\Omega(f)$ is the collision operator. This is like an advection equation. The first two terms represent the distribution function being advected with velocity $\xi$ of its particles. The third term represents the forces affecting this velocity. The right-hand side is the source term representing the local distribution of $f$ due to collision. 

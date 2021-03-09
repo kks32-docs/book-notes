@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "width",
+                "query": "$$\\frac{df}{dt} = \\left(\\frac{\\partial f}{\\partial t}\\right)\\cdot\\frac{dt}{dt} + \\left(\\frac{\\partial f}{\\partial x_\\beta}\\right)\\cdot\\frac{dx_\\beta}{dt} + \\left(\\frac{\\partial f}{\\partial \\xi_\\beta}\\right)\\cdot\\frac{d\\xi_\\beta}{dt}$$",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -97,12 +97,12 @@
   },
   "lastOpenFiles": [
     "lbm/01-lbm/00-lbm.md",
+    "lbm/00-background.md",
+    "lbm/01-numerical-methods.md",
     "lbm/01-lbm/lbm-collision-streaming.png",
     "lbm/01-lbm/Untitled.md",
-    "lbm/01-numerical-methods.md",
     "_sidebar.md",
     "lbm/scales.png",
-    "lbm/00-background.md",
     "lbm/Untitled.md",
     "README.md",
     "deep-learning/deep-networks/08-structured-probabilistic-models.md"
