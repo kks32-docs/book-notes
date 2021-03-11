@@ -109,3 +109,49 @@ For $n = 2$:
 $$H^{(2)}_{xx} = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_x \partial_x e^{-(x^2 + y^2)/2} = x^2 -1$$
 $$H^{(2)}_{xy} = H^{(2)}_{yx} = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_x \partial_y e^{-(x^2 + y^2)/2} = xy$$
 $$H^{(2)}_{yy} = - \frac{1}{e^{-(x^2 + y^2)/2}} \partial_y \partial_y e^{-(x^2 + y^2)/2} = y^2 -1$$
+
+### Orthogonality
+In 1D, Hermite Polynomials are orthogonal with respect to $\omega(x)$:
+
+$$\int_{-\infty}^{\infty}\omega(x)H^{(n)}(x)H^{(n)}(x) dx = n! \delta_{nm}^{(2)}$$
+
+$\delta_{nm}^{(2)}$ is the Kronecker delta, for $d$ spatial dimensions
+
+
+$$\int \omega(x) H_\alpha^{(n)}(x)H^{(n)}(x) d^d x = \prod_{i=1}^d n_i! \delta_{nm}^{(2)}\delta_{\alpha\beta}^{(n+m)}$$
+
+For a 3D spatial dimension
+$$\int \omega(x) H_\alpha^{(n)}(x)H^{(n)}(x) d^3 x = n_x! n_y! n_z! \delta_{nm}^{(2)}\delta_{\alpha\beta}^{(n+m)}$$
+
+$n_x, n_y, n_z$ are number of occurrences of $x, y, z$ in $\alpha$. For, $\alpha = (x, x, y)$ we get $n_x = 2, n_y = 1, n_z = 0$. 
+
+1D HP forms a complete basis in $\mathbb{R}$, i.e., any sufficiently well behaved continuous function $f(x)\in\mathbb{R}$ is represented as:
+
+$$f(x) = \omega(x)\sum_{n=0}^{\infty}\frac{1}{n!}a^{(n)}\cdot H^{(n)}(x), \quad a^{(n)} = \int f(x)H^{(n)}(x)d^d x$$
+
+### Hermite series expansion of equilibrium distribution
+$$f^{eq}(\rho, u, \theta, \xi) = \omega(\xi)\sum_{n=0}^{\infty}\frac{1}{n!} a^{(n), eq}(\rho, u, \theta) \cdot H^{(n)}(\xi)$$
+$$a^{(n), eq}(\rho, u, theta) = \int f^{eq}(\rho, u, \theta, \xi)H^{(n)}\xi d^d \xi$$
+
+The equilibrium distribution function $f^{eq}(\xi)$ has the same form as weight function $\omega(\xi)$ of the HP:
+
+$$f^{eq}(\rho, u, \theta, \xi) = \frac{\rho}{(2\pi\theta)^{d/2}}e^{-(\xi -u)^2/2\theta} = \frac{\rho}{\theta^{d/2}}\omega\left(\frac{\xi - u}{\sqrt{\theta}}\right)$$
+
+$$a^{(n), eq} = \frac{\rho}{\theta^{d/2}} \int \omega\left(\frac{\xi - u}{\sqrt{\theta}}\right) H^{(n)}(\xi)d^d \xi$$
+
+where $\eta = (\xi -u)/\sqrt{\theta}$:
+
+$$a^{(n), eq} = \rho \int \omega (\eta) H^{(n)}(\sqrt{\theta} \eta + u )d^d \xi$$
+
+The integrals can be directly computed:
+
+$a^{(0), eq} = \rho \quad \quad  a_\alpha^{(1), eq} = \rho u_\alpha \quad \quad a_{\alpha\beta}^{(2), eq} = \rho (u_{\alpha}u_\beta + (\theta - 1)\delta_{\alpha\beta})$
+$a_{\alpha\beta\gamma}^{(3), eq} = \rho (u_{\alpha}u_\beta u_\gamma + (\theta - 1)(\delta_{\alpha\beta}u_\gamma+\delta_{\beta\gamma}u_\alpha+\delta_{\gamma\alpha}u_\beta)$
+The coefficients in the Hermite series expansion of $f^{eq}$ are related to conserved quantities: mass and momentum. To reproduce the relevant physics, i.e., to satisfy the conservation laws on the macroscopic level one does not need to consider the full mesoscopic equations and particle distribution functions. Instead, the first three terms of the Hermite series expansion are sufficient to reconstruct the macroscopic laws of hydrodynamics.
+
+The distribution function is written as: $f^{eq}(\xi)\approx \omega(\xi)\sum_{n=0}^N \frac{1}{n!}a^{(n),eq}H^{(n)}(\xi)$
+
+Considering up to the third moment: 
+$$f^{eq}(\xi)\approx \omega(\xi)\rho[1+ \xi_\alpha u_\alpha + (u_{\alpha}u_\beta + (\theta - 1)\delta_{\alpha\beta})(\xi_\alpha\xi_\beta - \delta_{\alpha\beta})] = \omega(\xi)\rho Q(u, \theta, \xi)$$
+
+The Mach number expansion matches with Hermite expansion up to second order in $u$. At higher order, they give different results. Due to orthogonality, Hermite expansion does not mix lower-order moments related to NSE with higher-order moments related to the energy equation and beyond. This is not the case for the Mach number expansion, so Hermite expansion is preferred. Hermite series also readily provides discrete velocity sets. We fully discretize the velocity space by replacing the continuous $\xi$ with a suitable set of discrete velocities $(\xi)$.
