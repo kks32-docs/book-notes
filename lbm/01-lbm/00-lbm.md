@@ -155,3 +155,51 @@ Considering up to the third moment:
 $$f^{eq}(\xi)\approx \omega(\xi)\rho[1+ \xi_\alpha u_\alpha + (u_{\alpha}u_\beta + (\theta - 1)\delta_{\alpha\beta})(\xi_\alpha\xi_\beta - \delta_{\alpha\beta})] = \omega(\xi)\rho Q(u, \theta, \xi)$$
 
 The Mach number expansion matches with Hermite expansion up to second order in $u$. At higher order, they give different results. Due to orthogonality, Hermite expansion does not mix lower-order moments related to NSE with higher-order moments related to the energy equation and beyond. This is not the case for the Mach number expansion, so Hermite expansion is preferred. Hermite series also readily provides discrete velocity sets. We fully discretize the velocity space by replacing the continuous $\xi$ with a suitable set of discrete velocities $(\xi)$.
+
+## Discretization
+Hermite weight function $\omega(\xi)$ has the same form as the equilibrium distribution function $f^{eq}(\xi)$. It is possible to numerically integrate the function values by taking the weighted sum at a small number of discrete points. The *Gauss-Hermite quadrature*: 
+
+$$\int_{-\infty}^\infty p^{(N)}(x)d^d x = \sum_{i=1}^n w_i P^{(N)}(x_i)$$
+
+The equilibrium function is: 
+$$a^{(n), eq} = \rho \int \omega (\eta) H^{(n)}(\sqrt{\theta} \eta, u )d^d \eta = \rho \int \omega(\eta)P^{(n)}(\eta) d^d \eta$$
+
+$H^{(n)}(\eta)$ is a polynomial of order $n$, we write it as $P^{(n)}(\eta)$. We use a much simpler truncated series expansion to derive the discretized Hermite series:
+
+$$a^{(n), eq} = \int f^{eq}(\xi) H^{(n)}(\xi) d^d \xi = \rho \int \omega (\eta) Q(\xi) H^{(n)}(\xi)d^d \xi = \rho \sum_{i=1}^n \omega_i Q(\xi_i) H^{(n)}(\xi_i)$$
+
+If the polynomial $Q(\xi)$ is second order, then $R(\xi) = Q(\xi)H^{(2)}(\xi)$ is 4th-order. We need at least $n=3$ to numerically integrate the moments exactly. Instead of having a continuous function $f^{eq}(\xi)$, we only consider a finite set of $f_i^{eq} = f^{eq}(\xi_i)$:
+
+$$f_i^{eq} = \omega_i\rho[1+ \xi_{i\alpha} u_\alpha + (u_{\alpha}u_\beta + (\theta - 1)\delta_{\alpha\beta})(\xi_{i\alpha}\xi_{i\beta} - \delta_{\alpha\beta})]$$
+
+The discrete set $f^{eq}(\xi_i)$ satisfies the exact conservation laws for the first three moments (density, momentum and energy) as the continuous equilibrium function $f^{eq}(\xi)$. This discretized equation is still continuous in space and time because of $\rho(x, t), u(x, t) and \theta(x, t)$. Assuming isothermal condition $\theta = 1$, removes the temperature term from the equilibrium distribution. Introducing a new particle velocity, $c_i = \xi_i / \sqrt{3}$, yields integer abscissa. 
+
+$$f_i^{eq} = \omega_i \rho \{1 + \frac{c_{i\alpha}u_\alpha}{c_s^2} + \frac{u_\alpha u_\beta (c_{i\alpha}c_{i\beta} - c_s^2 \delta_{\alpha\beta})}{2c_s^4}\}$$
+
+Where $c_s$ is the speed of sound.
+
+The discrete-velocity of Boltzmann equation is:
+$$\partial_i f_i + c_{i\alpha}\partial_\alpha f_i = \Omega(f_i) \quad i = 1, \dots q$$
+
+Macroscopic moment (density and momentum) are computed from finite sums:
+$\rho = \sum_i f_i = \sum_i f_i^{eq}, \quad \rho u = \sum_i f_i c_i= \sum_i f_i^{eq} c_i$
+
+## Velocity sets
+What discrete velocity sets $\{c_i\}$ to choose? We need appropriate velocity sets to solve the NSE while keeping the computational cost low. We name each velocity set by its number $d$ of spatial dimensions and number $q$ of discrete velocities using $DdQq$ notation (D2Q9 has 9-discrete velocities in 2D). The velocity set is fully defined by two sets of quantities: velocities $\{c_i\}$ and the corresponding weights $\{w_i\}$, both together yield the speed of sound $c_s$. Most velocity sets have a rest velocity of zero magnitude to represent the stationary particle (typically at index 0). 
+
+When LB is used to solve the NSE one requires all moments of weights $w_i$ up to fifth-order to be isotropic. Additionally, all weights $w_i$ have to be non-negative:
+
+$\sum_i w_i = 1 \quad \sum_i w_i c_{i\alpha} = 0 \quad \sum_i w_i c_{i\alpha} c_{i\beta} = c_s^2 \delta_{\alpha\beta}$
+$\sum_i w_i c_{i\alpha}c_{i\beta}c_{i\gamma} = 0$
+$\sum_i w_i c_{i\alpha}c_{i\beta}c_{i\gamma}c_{i\mu} = c_s^4(\delta_{\alpha\beta}\delta_{\gamma\mu} + \delta_{\alpha\gamma}\delta_{\beta\mu} + \delta_{\alpha\mu}\delta_{\beta\gamma})$
+$\sum_i w_i c_{i\alpha}c_{i\beta}c_{i\gamma}c_{i\mu}c_{i\nu} = 0$
+
+Velocity set $\{c_i\}$ and weights $w_i$ must satisfy the above condition. Not all discrete velocities satisfy the conditions; for example, D2Q5 satisfies only the first four equations. D3Q27, on the other hand, is overdetermined where $w_i$ and $c_s$ are not uniquely determined and vary. These parameters optimize stability. 
+
+For advection-diffusion, it is sufficient to fulfill the first four equations. To solve for the Navier-Stokes-Fourier, we need to include the energy term. 
+
+LBE is spatially and temporally discretized on a lattice with constant $\Delta x$ and time step $\Delta t$. It is extremely convenient to use velocity sets where all velocities (lattice vectors) $\{c_i\}$ directly connect lattice sets, rather than ending up somewhere between them. We will only consider velocity sets for which all components of $c_i$ are integer multiples of $\Delta x/ \Delta t$. Usually, $\Delta x$ and $\Delta t$ are set to be 1, thus $c_{i\alpha}$ are usually integers. 
+
+Discrete velocity sets are for 2D - D2Q9 and 3D - D3Q15, D3Q19, and D3Q27 with decreasing order of computational efficiencies. Some truncated terms (non-linear) momentum-advection corrections are not rotationally invariant in D3Q15 and D3Q19 in contrast to D3Q27, which may cause problems in high Reynolds number. *D3Q27 is best for turbulence modeling. D3Q19 is a good compromise for laminar flow*.
+
+If all the weights $w_i = 1/q$ for all $i$, they point to the same surface of a sphere in velocity space, which rules out the existence of rest velocity. 3D discrete velocities were determined from the spatial petrubation of 4D velocity space $(\pm 1, \pm 1, 0, 0)$ projected down to 3D, which yields a multi-speed D3Q18 (+1 for rest velocity) with velocities of length 1 and $\sqrt{2}$. D2Q9 can be obtained by projecting the weights of D3Q19 in 2D space. For the zero-velocity $c_0$ the projection of total weights of D3Q19 velocity vectors are: $\frac{1}{3} + \frac{1}{18} + \frac{1}{18} = \frac{4}{9}$.
