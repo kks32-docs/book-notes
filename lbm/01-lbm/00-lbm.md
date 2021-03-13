@@ -203,3 +203,53 @@ LBE is spatially and temporally discretized on a lattice with constant $\Delta x
 Discrete velocity sets are for 2D - D2Q9 and 3D - D3Q15, D3Q19, and D3Q27 with decreasing order of computational efficiencies. Some truncated terms (non-linear) momentum-advection corrections are not rotationally invariant in D3Q15 and D3Q19 in contrast to D3Q27, which may cause problems in high Reynolds number. *D3Q27 is best for turbulence modeling. D3Q19 is a good compromise for laminar flow*.
 
 If all the weights $w_i = 1/q$ for all $i$, they point to the same surface of a sphere in velocity space, which rules out the existence of rest velocity. 3D discrete velocities were determined from the spatial petrubation of 4D velocity space $(\pm 1, \pm 1, 0, 0)$ projected down to 3D, which yields a multi-speed D3Q18 (+1 for rest velocity) with velocities of length 1 and $\sqrt{2}$. D2Q9 can be obtained by projecting the weights of D3Q19 in 2D space. For the zero-velocity $c_0$ the projection of total weights of D3Q19 velocity vectors are: $\frac{1}{3} + \frac{1}{18} + \frac{1}{18} = \frac{4}{9}$.
+
+The discretized form:
+
+$$f_i^{eq}(x, t) = w_i \rho \left[1 + \frac{u \cdot c_{i\alpha}u_\alpha}{c_s^2} +  \frac{(u_\alpha u_\beta (c_{i\alpha}c_{i\beta} -c_s^2 \delta_{\alpha\beta})}{2c_s^4} \right]$$
+
+For $c_s^2 = 1/3$, $u^2 = u_x^2 + u_y^2$, $u = (u_x, u_y)^T$:
+
+![2D-feq](2d-feq.png)
+
+The LB assumes the population $f_i$ move with velocity $c_i$ from one lattice to another, without getting "stuck" in between nodes. This is guranteed by a uniform and regular lattice distance $\Delta x$ and velocity component is an integer multiple of $\Delta x/\Delta t$, $c_{i\alpha} = n \Delta x/\Delta t$.
+
+The force-free Boltzmann equation: $\partial_t f_i + c_{i\alpha} \partial_\alpha f_i = \Omega_i$. Converting the left-hand side of the equation into total derivatives:
+
+$$\frac{d f}{d\zeta} = \left(\frac{\partial f_i}{\partial t}\right) \frac{dt}{d\zeta} +  \left(\frac{\partial f_i}{\partial x_\alpha}\right) \frac{d x_\alpha}{d\zeta} = \Omega_i (x(\zeta), t(\zeta))$$
+We know: $\frac{dt}{d\zeta} = 1$ and $\frac{dx_\alpha}{d\zeta} = c_{i\alpha}$: 
+
+$$\left(\frac{\partial f_i}{\partial t}\right) + c_{i\alpha}\cdot  \left(\frac{\partial f_i}{\partial x_\alpha}\right) = \Omega_i (x(\zeta), t(\zeta))$$
+This is similar to a hyperbolic equation: $\frac{\partial g}{\partial t} + a \cdot \nabla g = 0$, which describes the advection of the quantity $g$ by a velocity vector $a$. The solution to the PDE is defined by a trajectory: $x = x_0 + a t$, where $x_0$ is an arbitrary constant. 
+
+Similarly, integrating the right-hand side of the equation from $\zeta = 0$ to $\Delta t$, with $x(\zeta = 0) = x_0$ and $t(\zeta = 0) = t_0$:
+
+$$f_i(x_0 + c_i \Delta t, t_0 + \Delta t) - f_i(x_0, t_0) = \int_0^{\Delta t} \Omega_i (x_0 + c_i \Delta t, t_0 + \Delta t) d\zeta$$
+since $x_0$ and $t_0$ are arbitrary:
+$$f_i(x + c_i \Delta t, t + \Delta t) - f_i(x, t) = \int_0^{\Delta t} \Omega_i (x + c_i \Delta t, t + \Delta t) d\zeta$$
+During the time step $\Delta t$ the population $f_i(x, t)$ moves from $x$ to $x + c_i \Delta t$ giving $f_i(x+ c_i \Delta t, t + \Delta t)$, where $c_{i\alpha} = n \Delta x/\Delta t$. 
+
+Fully explicit first-order discretization to solve the collision operation by solving at a single point is: 
+$$f_i(x + c_i \Delta t, t + \Delta t) = f_i(x, t) + \Delta t \Omega_i (x, t)$$ 
+Second-order discretization using trapezoidal rule:
+$$f_i(x + c_i \Delta t, t + \Delta t) = f_i(x, t) + \Delta t \frac{\Omega_i (x, t) + \Omega_i (x + c_i \Delta t, t + \Delta t)}{2}$$ 
+LBE is second-order accurate.
+
+## BGK collision operator
+The density of a liquid is high, resulting in more than three or more particles colliding with each other. However, we can still use the simplified collision operation involving the population $f_i$ and the equilibrium of population $f_i^{eq}$: $\Omega_i \propto (f_i - f_i^{eq})$. The most important property of the collision operator is the conservation of mass and momentum. The BGK collision operator is written as:
+$$\Omega_i = - \frac{f_i - f_i^{eq}}{\tau}$$ which represents the tendency of the population $f_i$ to approach its equilibrium state $f_i^{eq}$ after a time $\tau$ - this is referred to as *relaxation to equilibrium*. $\tau$ is the relaxation time. Using BGK in the first order solution:
+
+$$f_i(x + c_i \Delta t, t + \Delta t) = f_i(x, t) - \frac{\Delta t}{\tau}(f_i(x, t) - f_i^{eq}(x, t))$$ 
+BGK is often referred to as the single relaxation time collision operator. There exists multiple relaxation time collision operation, which represents relaxation time for different components of $f_i^{eq}$.
+
+The discretized BGK:
+$$f_i (t + \Delta t) = (1 - \frac{\Delta t}{\tau})f_i(t) + \frac{\Delta t}{\tau} f_i^{eq}$$
+
+Depending on the choice of $\tau/\Delta t$, $f_i$ relaxes in four different ways:
+
+- *Under relaxation* $\tau/\Delta t > 1$, $f_i$ decays exponentially towards $f_i^{eq}$
+- *Full relaxation* $\tau/\Delta t = 1$, $f_i$ decays directly to $f_i^{eq}$
+- *Over relaxation* $0.5 < \tau/\Delta t < 1$, $f_i$ oscillates around $f_i^{eq}$
+- *Unstable* $\tau/\Delta t < 0.5$, system is unstable and oscillates between $f_i$ and $f_i^{eq}$ and the amplitude continues to increase.
+
+![relaxation](relaxation.png)
