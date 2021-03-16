@@ -64,7 +64,7 @@ $$\nabla_w MSE_{train} = \frac{1}{m} \nabla_x ||\hat{y}^{(train)} - y^{(train)}|
 
 Rewriting and differentiating with respect to $w$ yields:
 
-$$w = (X^{(train)}^T X^{(train)})^{-1} X^{(train)}^T y^{(train)}$$
+$$w = (X^{(train)^T} X^{(train)^{-1}}) X^{(train)^T} y^{(train)}$$
 
 These weights are computed from the training set to estimate $\hat{y}$.  However, we often deal with $\hat{y} = w^T x + b$, the mapping is still linear, but a mapping from feature to prediction now is an affine function. The intercept term $b$ is called as the __bias parameter__. The output of the system is biased towards being $b$ in the absence of any input, hence it is termed as the bias parameter and is _different from the statistical bias_.
 

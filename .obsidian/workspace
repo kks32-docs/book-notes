@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
+            "file": "deep-learning/ml-basics/00-machine-learning-basics.md",
             "mode": "preview"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "deep-learning/ml-basics/00-machine-learning-basics.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "deep-learning/ml-basics/00-machine-learning-basics.md"
               }
             }
           }
@@ -96,6 +96,7 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "deep-learning/ml-basics/00-machine-learning-basics.md",
     "_sidebar.md",
     "README.md",
     "lbm/01-lbm/00-lbm.md",
@@ -104,7 +105,6 @@
     "lbm/01-lbm/lbm-collision-streaming.png",
     "lbm/01-lbm/Untitled.md",
     "lbm/scales.png",
-    "lbm/Untitled.md",
-    "deep-learning/deep-networks/08-structured-probabilistic-models.md"
+    "lbm/Untitled.md"
   ]
 }
