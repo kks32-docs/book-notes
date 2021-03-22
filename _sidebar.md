@@ -33,3 +33,4 @@
   * [Introduction](lbm/00-background.md)
   * [Numerical methods](lbm/01-numerical-methods.md)
   * [Lattice Boltzmann](lbm/02-lbm/00-lbm.md)
+	  * [Chapman Eskog Analysis](lbm/02-lbm/01-chapman-eskog-analysis.md)
