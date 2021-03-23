@@ -10,8 +10,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "_sidebar.md",
-            "mode": "preview"
+            "file": "lbm/02-lbm/01-chapman-enskog-analysis.md",
+            "mode": "source"
           }
         }
       }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_sidebar.md",
+                "file": "lbm/02-lbm/01-chapman-enskog-analysis.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -84,7 +84,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_sidebar.md"
+                "file": "lbm/02-lbm/01-chapman-enskog-analysis.md"
               }
             }
           }
@@ -96,15 +96,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "lbm/02-lbm/01-chapman-enskog-analysis.md",
     "_sidebar.md",
     "lbm/02-lbm/01-chapman-eskog-analysis.md",
+    "lbm/02-lbm/00-lbm.md",
     "lbm/02-lbm/Untitled.md",
     "deep-learning/ml-basics/00-machine-learning-basics.md",
     "README.md",
     "lbm/01-lbm/00-lbm.md",
     "lbm/00-background.md",
-    "lbm/01-numerical-methods.md",
-    "lbm/01-lbm/lbm-collision-streaming.png",
-    "lbm/01-lbm/Untitled.md"
+    "lbm/01-numerical-methods.md"
   ]
 }
