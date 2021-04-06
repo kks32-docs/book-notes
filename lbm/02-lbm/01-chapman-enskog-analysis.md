@@ -82,3 +82,25 @@ $$f_i^{eq} = w_i \rho + w_i \rho_0 \left[\frac{c_{i\alpha} u_\alpha}{c_s^2} + \f
 
 ## Equation of State
 The speed of sound is determined by the Equation of State $p(\rho, s)$, $c=\sqrt{(\partial p/\partial \rho)_s}$, where $s$ is the entropy.
+
+## Stability analysis
+Courant number $C = |u| \Delta t / \Delta x$ determines the stability of CFD simulations. $|U|$ is the physical speed of advection of the fluid and $\Delta x / \Delta t$  is speed.  If $\Delta x / \Delta t  < |u|$, $C > 1$ simulation cannot propagate the physical solution quickly enough $c \le 1$ is a necessary condition. 
+
+In LBM, stability analysis is needed for each direction $c_i$. $\tau / \Delta t \ge 0.5$ is a necessary condition (not sufficient) for stability for BGK operator. The optimal stability condition represents the union of necessary conditions. 
+
+For BGK operator, a sufficient stability condition is the non-negativity of all equilibrium populations. This condition holds good for any value of $\tau$, where $\tau / \Delta t \ge 0.5$ as long as $f_i^{eq} \ge 0$, for all *i*, simulation is stable. For D2Q9 and D3Q models with BGK, the maximum achievable velocity $|u_{max}|/(\Delta x / \Delta t) < 0.577 \approxeq 1/\sqrt{3}$ and this ratio increases to 0.8 for $\tau/\Delta t> 1$.
+
+For D2Q9 with BGK, at low values of $\tau/\Delta t < 0.55$, $$|u_{max}|(\tau) = 8 \left(\frac{\tau}{\Delta t} - \frac{1}{2}\right) \frac{\Delta x}{\Delta t}$$
+
+For $\tau / \Delta t > 0.55$, $|u_{max}|(\tau) = 0.4 \Delta x / \Delta t$
+
+![LBM Stability](lbm-stability.png)
+> Stability of LBM with BGK
+
+If $|u| < c_s$ (small Mach numbers) simulation is stable. If $|u| \ge c_s, \tau/\Delta t= 1$, then $\tau$ has to be decreased to reduce the velocity magnitude, while keeping the Reynolds number unchanged. 
+
+LBE is $O(\varepsilon^2)$ approximation of NSE, second-order accuracy. Second-order convergence means error decreases quadratically with $\Delta x$ for a fixed $\nu \Delta t / \Delta x^2$. 
+
+Standard lattices introduce $O(u^3)$ error term that limits the LBM to isothermal NSE in a weakly compressible regime. Incompressible NSE suffers from $O(Ma^2)$, effectively LBE is first-order accurate in time for incompressible flows. 
+
+LBM is second-order accurate in space and time (fixed $\tau$) for approximate NSE. 
