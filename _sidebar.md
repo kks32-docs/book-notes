@@ -34,3 +34,4 @@
   * [Numerical methods](lbm/01-numerical-methods.md)
   * [Lattice Boltzmann](lbm/02-lbm/00-lbm.md)
 	  * [Chapman Enskog Analysis](lbm/02-lbm/01-chapman-enskog-analysis.md)
+	  * [Non-dimensionalization](lbm/02-lbm/02-non-dimensionalization.md)
