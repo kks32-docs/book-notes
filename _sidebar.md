@@ -35,3 +35,4 @@
   * [Lattice Boltzmann](lbm/02-lbm/00-lbm.md)
 	  * [Chapman Enskog Analysis](lbm/02-lbm/01-chapman-enskog-analysis.md)
 	  * [Non-dimensionalization](lbm/02-lbm/02-non-dimensionalization.md)
+  * [Multiphase Multicomponent LB](lbm/03-multiphase-multicomponent/00-multiphase-multicomponent.md)
