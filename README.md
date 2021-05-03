@@ -10,4 +10,7 @@
 
 [Lattice Boltzmann Method](lbm/00-background.md)
 
+[Reinforcement Learning](reinforcement-learning/00-introduction.md)
+
 [Unsaturated Soil Mechanics](unsaturated-soil-mechanics/00-introduction.md)
+
