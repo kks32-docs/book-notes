@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "README.md",
+            "file": "reinforcement-learning/00-introduction.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "reinforcement-learning/00-introduction.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -85,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "reinforcement-learning/00-introduction.md"
               }
             }
           }
@@ -98,6 +98,7 @@
   },
   "active": "05dee5ca50e55c67",
   "lastOpenFiles": [
+    "reinforcement-learning/00-introduction.md",
     "README.md",
     "reinforcement-learning/Untitled.md",
     "unsaturated-soil-mechanics/00-introduction.md",
@@ -106,7 +107,6 @@
     "lbm/03-multiphase-multicomponent/00-multiphase-multicomponent.md",
     "lbm/03-multiphase-multicomponent/Untitled.md",
     "lbm/02-lbm/02-non-dimensionalization.md",
-    "lbm/02-lbm/Untitled.md",
-    "lbm/02-lbm/01-chapman-enskog-analysis.md"
+    "lbm/02-lbm/Untitled.md"
   ]
 }
