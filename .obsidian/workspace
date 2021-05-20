@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "reinforcement-learning/00-introduction.md",
+            "file": "_sidebar.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "reinforcement-learning/00-introduction.md",
+                "file": "_sidebar.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -85,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "reinforcement-learning/00-introduction.md"
+                "file": "_sidebar.md"
               }
             }
           }
@@ -98,11 +98,11 @@
   },
   "active": "05dee5ca50e55c67",
   "lastOpenFiles": [
+    "_sidebar.md",
+    "reinforcement-learning/Untitled.md",
     "reinforcement-learning/00-introduction.md",
     "README.md",
-    "reinforcement-learning/Untitled.md",
     "unsaturated-soil-mechanics/00-introduction.md",
-    "_sidebar.md",
     "unsaturated-soil-mechanics/Untitled.md",
     "lbm/03-multiphase-multicomponent/00-multiphase-multicomponent.md",
     "lbm/03-multiphase-multicomponent/Untitled.md",

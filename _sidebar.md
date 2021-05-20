@@ -29,6 +29,9 @@
     * [Practical methodologies](deep-learning/deep-networks/07-practical-methodologies.md)
     * [Structured probability models](deep-learning/deep-networks/08-structured-probabilistic-models.md)
     
+* Deep Reinforcement Learning
+	* [Introduction](drl/00-introduction)
+	* [Tabular DRL](drl/01-tabular-drl)	
 * Lattice Boltzmann Method
   * [Introduction](lbm/00-background.md)
   * [Numerical methods](lbm/01-numerical-methods.md)
