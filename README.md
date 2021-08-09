@@ -1,4 +1,4 @@
-# [Notes from technical books](https://kks32.github.io/learning/)
+# [Notes from technical books](https://kks32-docs.github.io/book-notes/)
 
 > Krishna Kumar
 
